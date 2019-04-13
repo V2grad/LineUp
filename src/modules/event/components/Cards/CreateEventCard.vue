@@ -1,6 +1,13 @@
 <template>
 <div>
-  <b-card title="Create a new Event" sub-title="Card subtitle">
+  <b-card
+    overlay
+    img-src="https://picsum.photos/900/250/?image=3"
+    img-alt="Card Image"
+    text-variant="white"
+    title="Create a new Event"
+    sub-title=""
+  >
     <b-card-text>
         Enter a title and you are good to go.
     </b-card-text>
