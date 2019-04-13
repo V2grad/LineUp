@@ -4,7 +4,8 @@ import Vuex from 'vuex'
 
 import home from '@/modules/home/store'
 import event from '@/modules/event/store'
-import local from '@/modules/loca/store'
+import local from '@/modules/local/store'
+import user from '@/modules/user/store'
 
 // A Vuex instance is created by combining the state, mutations, actions,
 // and getters.
@@ -12,7 +13,8 @@ export default new Vuex.Store({
   modules: {
     home,
     event,
-    local
+    local,
+    user
   },
   plugins: [createPersistedState({
     reducer (state) {

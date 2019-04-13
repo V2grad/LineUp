@@ -1,6 +1,6 @@
 import CreateEvent from './views/CreateEvent'
-import JoinEvent from './view/JoinEvent'
-import LeaveEvent from './view/LeaveEvent'
+import JoinEvent from './views/JoinEvent'
+import LeaveEvent from './views/LeaveEvent'
 
 export default [{
   path: '/event/create',

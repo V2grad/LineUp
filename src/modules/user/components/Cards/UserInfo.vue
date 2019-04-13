@@ -29,8 +29,8 @@ export default {
   },
   computed: {
       ...mapGetters('user', {
-          userId: getUserId,
-          username: getUsername,
+          userId: 'getUserId',
+          username: 'getUsername',
       }),
       name: {
           get() {
@@ -42,9 +42,9 @@ export default {
       }
   },
   methods: {
-      ...mapActions('user', {
-          updateUsername
-      })
+      ...mapActions('user', [
+         'updateUsername'
+      ])
   }
 }
 </script>
