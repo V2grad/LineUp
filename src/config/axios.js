@@ -4,13 +4,12 @@ import store from '@/store'
 import v from '@/main'
 
 axios.interceptors.request.use((config) => {
-  config.baseURL = store.getters['home/API']
-  //   let token = store.getters['auth/token']
-  //   console.log(token)
-  //   if (token) {
-  //     // Authentication Authorization
-  //     config.headers.common['token'] = token
-  //   }
+  config.baseURL = store.getters['local/API']
+  let token = store.getters['user/getUserId']
+  if (token) {
+    // Authentication Authorization
+    config.headers.common['user-id'] = token
+  }
   return config
 }, function (error) {
   // Do something with request error
@@ -36,3 +35,5 @@ axios.interceptors.response.use((response) => {
 })
 
 Vue.prototype.$axios = axios
+
+export default axios

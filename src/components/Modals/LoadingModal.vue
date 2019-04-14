@@ -22,6 +22,7 @@
 <script>
 import LoadingProgressBar from '../Items/LoadingProgressBar'
 import LoadingErrorAlert from '../Alerts/LoadingErrorAlert'
+
 export default {
   name: 'LoadingModal',
   components: {

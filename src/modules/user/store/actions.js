@@ -1,11 +1,9 @@
-import Vue from '@/main'
+import axios from '@/config/axios'
 
 export default {
   validateUser ({ getters }) {
     if (getters.isVaildUser) {
-      return Vue.$axios.get('/users', {
-        id: getters.getUserId
-      }).then(r => {
+      return axios.get('/users/' + getters.getUserId).then(r => {
         if (r.data.length !== 0) {
           return true
         }
@@ -16,15 +14,15 @@ export default {
     }
   },
   createUser ({ commit }) {
-    return Vue.$axois.post('/users').then(r => {
-      commit('updateUserId', r.data.id)
-      commit('updateUsername', r.data.id)
+    return axios.post('/users').then(r => {
+      commit('updateUserId', r.data._id)
+      commit('updateUsername', r.data.display_name)
       return true
     })
   },
   updateUsername ({ getters, commit }, name) {
     if (getters.isVaildUser) {
-      return Vue.$axios.put('/users' + getters.getUserId, {
+      return axios.put('/users/' + getters.getUserId, {
         username: name
       }).then(r => {
         commit('updateUsername', name)

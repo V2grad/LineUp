@@ -1,4 +1,5 @@
 export default {
-  userId: null,
-  username: null
+  API: 'http://localhost:3000/',
+  error: false,
+  loading: false
 }

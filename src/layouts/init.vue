@@ -14,28 +14,31 @@ import { mapActions, mapMutations } from 'vuex'
 export default {
     name: 'InitLayout',
     mounted() {
-        // this.updateLoading(true)
-        // this.validateUser().then(r => {
-        //     if (!r) {
-        //         if (this.createUser()) {
-        //             this.updateLoading(false)
-        //         } else {
-        //             this.updateError(true)
-        //         }
-        //     }
-        // }).catch(e => {
-        //     this.updateError(true)
-        // })
+        this.updateLoading(true)
+        this.validateUser().then(r => {
+            if (!r) {
+                if (this.createUser()) {
+                    this.updateLoading(false)
+                } else {
+                    this.updateError(true)
+                }
+            } else {
+              this.updateLoading(false)
+            }
+        }).catch(e => {
+          console.log(e)
+          this.updateError(true)
+        })
     },
     methods: {
-        // ...mapActions('user', {
-        //     createUser,
-        //     validateUser
-        // }),
-        // ...mapMutations('local', {
-        //     updateLoading,
-        //     updateError,
-        // })
+        ...mapActions('user', [
+           'createUser',
+            'validateUser'
+        ]),
+        ...mapMutations('local', [
+            'updateLoading',
+            'updateError',
+        ])
     }
 }
 </script>
