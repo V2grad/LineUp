@@ -19,7 +19,13 @@ Please reference to [wiki](../../wiki) for more information
 
 ## Screenshots
 
-@TODO
+### Login
+
+![](https://user-images.githubusercontent.com/17120571/56155337-af22df80-5f88-11e9-93b4-0ea34d55440b.png)
+
+### Events adding
+
+![](https://user-images.githubusercontent.com/17120571/56155406-ce217180-5f88-11e9-860f-ada35aa2cfdd.png)
 
 ## Features
 
