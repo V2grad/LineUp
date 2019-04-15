@@ -1,6 +1,6 @@
 # HandsUp
 
-HandsUp is a handy tool to help students and mentors get correct informamation.
+HandsUp is a handy tool to help students and mentors get correct informamation of queued status
 
 ## Purposal
 
