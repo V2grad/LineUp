@@ -13,7 +13,7 @@
 <script>
 export default {
   name: 'LogoutCard',
-  mounted() {
+  mounted () {
     this.$store.dispatch('auth/userSignOut')
   }
 }

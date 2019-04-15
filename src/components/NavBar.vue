@@ -46,8 +46,8 @@
         <b-nav-item-dropdown
           text="Navigate"
           right>
-          <b-dropdown-item 
-            :to="{'name': 'UserProfile'}" 
+          <b-dropdown-item
+            :to="{'name': 'UserProfile'}"
             exact>
             Welcome, {{ username }}
           </b-dropdown-item>
@@ -74,15 +74,12 @@
 export default {
   name: 'NavBar',
   computed: {
-    username() {
+    username () {
       return this.$store.getters['user/getUsername']
     }
-<<<<<<< HEAD
   },
-  mounted() {
+  mounted () {
     this.$store.dispatch('user/updateUser')
-=======
->>>>>>> f7c10a3c252f2d4d5c5dfe839c24db5ddfbd9bf8
   }
 }
 </script>

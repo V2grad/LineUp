@@ -51,9 +51,9 @@ export default {
   methods: {
     submit () {
       this.submitting = true
-      this.$store.dispatch("auth/userJoin", {
-          email: this.email,
-          password: this.password
+      this.$store.dispatch('auth/userJoin', {
+        email: this.email,
+        password: this.password
       }).then((success) => {
         if (!success) this.submitting = false
       })

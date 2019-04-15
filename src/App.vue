@@ -15,7 +15,6 @@ body,
   width: 100%;
 }
 
-
 body {
   background-image: url("https://www.rpi.edu/dept/cct/apps/web-branding/v1/footer/footer-background.jpg");
   background-repeat: no-repeat; /* Do not repeat the image disabled for now, for mobile device. */
@@ -29,7 +28,6 @@ body {
   height: 100%;
 }
 </style>
-
 
 <script>
 import Loading from './components/Modals/LoadingModal'

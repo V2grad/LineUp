@@ -53,15 +53,14 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.authRequired)) {
     if (!store.state.isAuthenticated) {
       next({
-        name: "Signin"
-      });
+        name: 'Signin'
+      })
     } else {
-      next();
+      next()
     }
   } else {
-    next();
+    next()
   }
-});
+})
 
 export default router
-

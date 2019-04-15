@@ -1,11 +1,11 @@
 export default {
-  isAuthenticated(state) {
-    return state.user !== null && state.user !== undefined;
+  isAuthenticated (state) {
+    return state.user !== null && state.user !== undefined
   },
-  getUserId(state) {
+  getUserId (state) {
     return state.user ? state.user.user.uid : null
   },
-  getUser(state) {
+  getUser (state) {
     return state.user
   }
-};
+}

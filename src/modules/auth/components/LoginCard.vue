@@ -51,7 +51,7 @@ export default {
   methods: {
     submit () {
       this.submitting = true
-      this.$store.dispatch("auth/userLogin", {
+      this.$store.dispatch('auth/userLogin', {
         email: this.email,
         password: this.password
       }).then((success) => {

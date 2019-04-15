@@ -1,8 +1,8 @@
 export default {
-  setUser(state, payload) {
-    state.user = payload;
+  setUser (state, payload) {
+    state.user = payload
   },
-  setIsAuthenticated(state, payload) {
-    state.isAuthenticated = payload;
+  setIsAuthenticated (state, payload) {
+    state.isAuthenticated = payload
   }
-};
+}

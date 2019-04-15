@@ -11,26 +11,26 @@
 
 <script>
 export default {
-    name: 'JoinEventConfirm',
-    computed: {
-        eventName() {
-            return this.$store.getters['event/getEventName']
-        }
-    },
-    methods: {
-        confirm() {
-            this.$router.push({ name: 'AddRecord'})
-        },
-        reset() {
-            this.$store.dispatch('event/reset')
-            this.$router.push({name: 'Home'})
-        }
-    },
-    mounted() {
-        if (!this.$store.getters['event/isValidEvent']) {
-            this.$toasted.error('Fail to load event, please try again later')
-            this.$router.push({name: 'Home'})
-        }
+  name: 'JoinEventConfirm',
+  computed: {
+    eventName () {
+      return this.$store.getters['event/getEventName']
     }
+  },
+  methods: {
+    confirm () {
+      this.$router.push({ name: 'AddRecord' })
+    },
+    reset () {
+      this.$store.dispatch('event/reset')
+      this.$router.push({ name: 'Home' })
+    }
+  },
+  mounted () {
+    if (!this.$store.getters['event/isValidEvent']) {
+      this.$toasted.error('Fail to load event, please try again later')
+      this.$router.push({ name: 'Home' })
+    }
+  }
 }
 </script>

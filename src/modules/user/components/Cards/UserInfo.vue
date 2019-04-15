@@ -25,13 +25,12 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'UserInfoCard',
-  data() {
+  data () {
     return {
       name: ''
     }
   },
   computed: {
-<<<<<<< HEAD
     ...mapGetters('auth', {
       userId: 'getUserId'
     }),
@@ -44,34 +43,15 @@ export default {
       'updateUser',
       'updateUsername'
     ]),
-    writeData() {
+    writeData () {
       this.updateUsername(this.name).then(r => {
         this.$toasted.success('update complete')
       })
     }
   },
-  mounted() {
+  mounted () {
     this.updateUser
     this.name = this.username
-=======
-      ...mapGetters('user', {
-          userId: 'getUserId',
-          username: 'getUsername',
-      }),
-      name: {
-          get() {
-              return this.username
-          },
-          set(value) {
-              this.updateUsername(value)
-          }
-      }
-  },
-  methods: {
-      ...mapActions('user', [
-         'updateUsername'
-      ])
->>>>>>> f7c10a3c252f2d4d5c5dfe839c24db5ddfbd9bf8
   }
 }
 </script>

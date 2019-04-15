@@ -9,7 +9,7 @@
             Name: {{ title }}
         </b-card-text>
         <b-list-group>
-            <b-list-group-item 
+            <b-list-group-item
                 v-for="tag in tags"
                 :key="tag"
                 class="d-flex justify-content-between align-items-center">
@@ -30,25 +30,25 @@
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
-    name: 'ShowEventCard',
-    computed: {
-        ...mapGetters('event', {
-            event: 'getEvent'
-        }),
-        title() {
-            return this.event.title
-        },
-        tags() {
-            return this.event.tags
-        }
+  name: 'ShowEventCard',
+  computed: {
+    ...mapGetters('event', {
+      event: 'getEvent'
+    }),
+    title () {
+      return this.event.title
     },
-    methods: {
-        ...mapActions('event', [
-            'updateEvent'
-        ])
-    },
-    mounted() {
-        this.updateEvent()
+    tags () {
+      return this.event.tags
     }
+  },
+  methods: {
+    ...mapActions('event', [
+      'updateEvent'
+    ])
+  },
+  mounted () {
+    this.updateEvent()
+  }
 }
 </script>

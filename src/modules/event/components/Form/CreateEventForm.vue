@@ -38,25 +38,25 @@
 import Form from '@/mixins/form'
 
 export default {
-    name: 'CreateEventForm',
-    mixins: [Form],
-     data () {
-        return {
-            title: '',
-            tags: []
-        }
-    },
-    methods: {
-        submit () {
-        this.submitting = true
-        this.$store.dispatch("event/createEvent", {
-            title: this.title,
-            tags: ['General']
-        }).then((success) => {
-            if (!success) this.submitting = false
-            else this.$toasted.success('Create Successfully')
-        })
-        }
+  name: 'CreateEventForm',
+  mixins: [Form],
+  data () {
+    return {
+      title: '',
+      tags: []
     }
+  },
+  methods: {
+    submit () {
+      this.submitting = true
+      this.$store.dispatch('event/createEvent', {
+        title: this.title,
+        tags: ['General']
+      }).then((success) => {
+        if (!success) this.submitting = false
+        else this.$toasted.success('Create Successfully')
+      })
+    }
+  }
 }
 </script>
