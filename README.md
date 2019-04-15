@@ -1,5 +1,7 @@
 # HandsUp
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/b8def190-356c-4c2e-b650-36b3cf06bbc8/deploy-status)](https://app.netlify.com/sites/syllabuild/deploys)
+
 HandsUp is a handy tool to help students and mentors get correct informamation of queued status during office hour
 
 built with [![Vuejs](https://img.shields.io/badge/vue.js-2.x-green.svg)](https://vuejs.org) 
