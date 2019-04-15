@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <Loading/>
     <router-view/>
   </div>
 </template>
@@ -21,7 +22,6 @@ body {
   background-size: cover;
 }
 
-
 /* The nav is position:fixed */
 .main-container {
   padding-top: 100px;
@@ -29,3 +29,15 @@ body {
   height: 100%;
 }
 </style>
+
+
+<script>
+import Loading from './components/Modals/LoadingModal'
+
+export default {
+  name: 'App',
+  components: {
+    Loading
+  }
+}
+</script>
