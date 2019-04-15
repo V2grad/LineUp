@@ -1,4 +1,12 @@
-# handsup-bootstrap
+# HandsUp
+
+HandsUp is a handy tool to help students and mentors get correct informamation.
+
+## Purposal
+
+https://github.com/V2grad/HandsUp/wiki/Purposal
+
+Please reference to [wiki](../../wiki) for more information
 
 ## Project setup
 ```
