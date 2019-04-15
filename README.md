@@ -1,6 +1,6 @@
 # HandsUp
 
-
+[![RCOS](https://img.shields.io/badge/Project%20Under-RCOS-lightgreen.svg)](https://rcos.io)
 
 HandsUp is a handy tool to help students and mentors get correct informamation of queued status during office hour
 
