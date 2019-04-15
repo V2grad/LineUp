@@ -11,12 +11,12 @@
     <p>
       Choose an action and get started!
     </p>
+   <b-btn
+      :to="{'name': 'Login'}"
+      variant="primary">Login</b-btn>
     <b-btn
-      :to="{'name': 'JoinEvent'}"
-      variant="primary">Join an Event</b-btn>
-    <b-btn
-      :to="{'name': 'CreateEvent'}"
-      variant="success">Create an Event</b-btn>
+      :to="{'name': 'Register'}"
+      variant="success">Register</b-btn>
     <b-btn
       variant="dark"
       href="https://github.com/V2grad/HandsUp">About this Project</b-btn>

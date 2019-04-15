@@ -10,8 +10,7 @@ import UserInfo from '../components/Cards/UserInfo'
 export default {
   name: 'UserProfile',
   components: {
-    PrintCard,
-    ExportCard
+    UserInfo
   }
 }
 </script>

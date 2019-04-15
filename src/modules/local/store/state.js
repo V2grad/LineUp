@@ -1,4 +1,4 @@
 export default {
-  userId: null,
-  username: null
+    loading: false,
+    error: false
 }

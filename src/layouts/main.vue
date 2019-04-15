@@ -1,11 +1,11 @@
 <template>
-  <div id="normal">
+  <div id="normal" class="mb-5">
     <NavBar/>
     <b-container
       fluid
       class="main-container">
       <transition>
-        <router-view/>
+          <router-view/>
       </transition>
     </b-container>
   </div>
@@ -22,15 +22,18 @@
 
 <script>
 import NavBar from '@/components/NavBar.vue'
+
 export default {
   name: 'NormalLayout',
   components: {
     NavBar
   },
-  mounted() {
-    if (!this.$store.getters['user/isVaildUser']) {
-        this.$router.push({ path: 'Home' })
+  mounted () {
+    // Check the token and let's rock
+    if (!this.$store.getters['auth/isAuthenticated']) {
+      this.$router.push({ name: 'login' })
+      this.$toasted.info('Login Expired')
     }
-  },
+  }
 }
 </script>

@@ -14,13 +14,13 @@ body,
   width: 100%;
 }
 
-/*
+
 body {
   background-image: url("https://www.rpi.edu/dept/cct/apps/web-branding/v1/footer/footer-background.jpg");
-  background-repeat: no-repeat; /* Do not repeat the image disabled for now, for mobile device.
+  background-repeat: no-repeat; /* Do not repeat the image disabled for now, for mobile device. */
   background-size: cover;
 }
-*/
+
 
 /* The nav is position:fixed */
 .main-container {

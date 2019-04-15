@@ -1,34 +1,23 @@
-import Vue from '@/main'
+import firebase from 'firebase'
 
 export default {
-  validateUser ({ getters }) {
-    if (getters.isVaildUser) {
-      return Vue.$axios.get('/users', {
-        id: getters.getUserId
-      }).then(r => {
-        if (r.data.length !== 0) {
-          return true
-        }
-        return false
+  updateUser ({ commit, rootGetters }) {
+    firebase
+      .database()
+      .ref('users/' + rootGetters['auth/getUserId'])
+      .once('value', (snapshot) => {
+        commit('updateUsername', snapshot.val().username)
       })
-    } else {
-      return false
-    }
   },
-  createUser ({ commit }) {
-    return Vue.$axois.post('/users').then(r => {
-      commit('updateUserId', r.data.id)
-      commit('updateUsername', r.data.id)
-      return true
-    })
-  },
-  updateUsername ({ getters, commit }, name) {
-    if (getters.isVaildUser) {
-      return Vue.$axios.put('/users' + getters.getUserId, {
+  updateUsername ({ commit, rootGetters }, name) {
+    return firebase
+      .database()
+      .ref('users/' + rootGetters['auth/getUserId'])
+      .set({
         username: name
       }).then(r => {
         commit('updateUsername', name)
+        return true
       })
-    }
   }
 }

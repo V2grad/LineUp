@@ -2,15 +2,19 @@
 import createPersistedState from 'vuex-persistedstate'
 import Vuex from 'vuex'
 
+import auth from '@/modules/auth/store'
 import home from '@/modules/home/store'
 import event from '@/modules/event/store'
-import local from '@/modules/loca/store'
+import user from '@/modules/user/store'
+import local from '@/modules/local/store'
 
 // A Vuex instance is created by combining the state, mutations, actions,
 // and getters.
 export default new Vuex.Store({
   modules: {
     home,
+    auth,
+    user,
     event,
     local
   },

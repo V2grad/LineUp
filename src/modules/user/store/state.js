@@ -1,4 +1,3 @@
 export default {
-  userId: null,
-  username: null
+  username: 'Unknown Person'
 }
