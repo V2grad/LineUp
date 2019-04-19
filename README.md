@@ -17,6 +17,18 @@ https://github.com/V2grad/HandsUp/wiki/Purposal
 
 Please reference to [wiki](../../wiki) for more information
 
+
+## Features
+
+- Real-Time information
+- Create and edit queued infromation
+- online and interaction mode
+- used by students and mentors
+
+Please reference to
+[wiki](../../wiki) for more features
+
+
 ## Screenshots
 
 ### Login
@@ -26,11 +38,6 @@ Please reference to [wiki](../../wiki) for more information
 ### Events adding
 
 ![](https://user-images.githubusercontent.com/17120571/56155406-ce217180-5f88-11e9-860f-ada35aa2cfdd.png)
-
-## Features
-
-@TODO
-
 
 ## Project setup
 ```
