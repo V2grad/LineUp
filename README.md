@@ -25,6 +25,7 @@ Please reference to [wiki](../../wiki) for more information
 - online and interaction mode
 - used by students and mentors
 
+https://github.com/V2grad/HandsUp/wiki
 Please reference to
 [wiki](../../wiki) for more features
 
