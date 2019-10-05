@@ -31,8 +31,8 @@ setup(
         'gunicorn>=19.6.0',
         'docopt>=0.6.2',
         'jsonschema>=2.5.1',
-        'mysql-connector>=2.1.4',
-        'sqlalchemy>=1.1.4',
+        'mongoengine>=0.18.2',
+        'dnspython>=1.16.0',
         'aumbry[yaml]>=0.7.0'
     ],
     package_data={},

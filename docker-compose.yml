@@ -11,7 +11,7 @@ services:
     depends_on:
       - db
   db:
-    image: mysql:5
+    image: mongo
     environment:
       MYSQL_ROOT_PASSWORD: test
       MYSQL_DATABASE: testdb

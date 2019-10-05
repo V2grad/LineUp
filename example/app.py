@@ -15,7 +15,7 @@ class MyService(falcon.API):
 
         # Build an object to manage our db connections.
         mgr = DBManager(self.cfg.db.connection)
-        mgr.setup()
+       #  mgr.setup()
 
         # Create our resources
         scores_res = scores.ScoresResource(mgr)
