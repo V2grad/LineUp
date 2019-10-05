@@ -1,3 +1,3 @@
-class BaseResource(object):
-    def __init__(self, db_manager):
-        self.db = db_manager
+class BaseResource():
+    def __init__(self):
+        print("{} Resource Inited!".format(self.__class__.__name__))

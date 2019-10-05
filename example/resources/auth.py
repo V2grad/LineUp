@@ -2,12 +2,11 @@ import falcon
 
 from falcon.media.validators.jsonschema import validate
 
-from example.db.Page import *
+from example.models.User import *
 from example.resources import BaseResource
-from example.schemas import load_schema
 
 
-class ScoresResource(BaseResource):
+class AuthResource(BaseResource):
     def on_get(self, req, resp):
 
         resp.status = falcon.HTTP_200
@@ -18,7 +17,7 @@ class ScoresResource(BaseResource):
     # @validate(load_schema('scores_creation'))
     def on_post(self, req, resp):
 
-        p = Page(title=req.media.get('title')).save()
+        p = User().save()
 
         resp.status = falcon.HTTP_201
         resp.media = {
