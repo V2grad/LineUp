@@ -2,12 +2,13 @@ import falcon
 
 from example.db.manager import DBManager
 from example.middleware.context import ContextMiddleware
+from example.middleware.retrieve_user import UserMiddleware
 
 
 class MyService(falcon.API):
     def __init__(self, cfg):
         super(MyService, self).__init__(
-            middleware=[ContextMiddleware()]
+            middleware=[ContextMiddleware(), UserMiddleware()]
         )
 
         self.cfg = cfg

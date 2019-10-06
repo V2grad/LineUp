@@ -8,11 +8,19 @@ from example.resources import BaseResource
 
 class AuthResource(BaseResource):
     def on_get(self, req, resp):
-
-        resp.status = falcon.HTTP_200
-        resp.media = {
-            "hello": "world"
-        }
+        if req.context.user:
+            resp.status = falcon.HTTP_200
+            resp.media = {
+                "data": {
+                    "user": req.context.user
+                }
+            }
+        else:
+            resp.status = falcon.HTTP_404
+            resp.media = {
+                "message": "User No Found",
+                "data": {}
+            }
 
     # @validate(load_schema('scores_creation'))
     def on_post(self, req, resp):

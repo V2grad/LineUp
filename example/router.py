@@ -1,8 +1,10 @@
+from example.resources.index import *
 from example.resources.auth import *
 from example.resources.user import *
 
 def routes():
     return [
+        ['/', IndexResource()],
         ['/auth', AuthResource()],
         ['/user', UserResource()]
     ]

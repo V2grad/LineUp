@@ -1,6 +1,5 @@
 import uuid
 
-
 def set_context(req, resp):
     if not req.context.get('request_id'):
         req.context['request_id'] = str(uuid.uuid4())
