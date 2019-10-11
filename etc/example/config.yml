@@ -1,6 +1,6 @@
 ---
   db:
-    connection: mysql+mysqlconnector://root:test@db:3306/testdb
+    connection: mongodb+srv://commonuser:commonuser@cluster0-ievbm.mongodb.net/test?retryWrites=true&w=majority
   gunicorn:
     bind: 0.0.0.0:8000
     workers: 1
