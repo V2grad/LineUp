@@ -10,7 +10,7 @@ class Event(Document):
     creator = ReferenceField(User, reverse_delete_rule=CASCADE)
     assistants = ListField(ReferenceField(User))
     sections = ListField(StringField()) # Suggested Tags
-    users = ListField(ReadPreference(User))
+    users = ListField(ReadPreference(User))
     requests = DictField()
     created_at = DateTimeField(default=datetime.datetime.utcnow)
 
