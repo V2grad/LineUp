@@ -1,0 +1,105 @@
+{
+"events":
+[
+    {
+        "eventName": "DSF19",
+        "time": 1145141919,
+        "createdBy": "Alice Margatroid",
+        "mentors": ["Reimu Hakurei", "Marisa Kirisame", "Sakuya Iyazoi"],
+        "ta": ["Alice Margatroid", "Keine Kamishirasawa"],
+        "students": [
+            {
+                "name": "Billy Herrington",
+                "requestId": 234
+            }, 
+            {
+                "name": "Patchouli Knowledge",
+                "requestId": 1919810
+            },
+            {
+                "name": "Van Darkholme",
+                "requestId": 123            
+                },
+            {
+                "name": "Yajju Senpai",
+                "requestId": 0          
+            }],
+        "requests": [
+            {
+                "requestId": 123,
+                "from": "Van Darkholme",
+                "category": "<help>, <check>", 
+                "appoint": "<TA>, <None>", 
+                "time_created": 158838483 
+            },
+            {
+                "requestId": 234,
+                "from": "Billy Herrington",
+                "category": "<help>, <check>",
+                "time_created": 1234567890,
+                "appoint": "<TA>, <None>"
+            },
+            {
+                "requestId": 810,
+                "from": "Patchouli Go",
+                "category": "help",          
+                "time_created": 1145141919
+            }
+        ],
+        "queue": [
+            {
+                "category": "help",
+                "request": [
+                    {
+                        "requestId": 123
+                    },
+                    {
+                        "requestId": 234
+                    }
+                ]
+            },
+            {
+                "category": "check",
+                "request": [
+                    {
+                        "requestId": 345
+                    }
+                ]
+            }
+        ]
+
+        
+    },
+    {
+        "eventName": "CompOrgF19",
+        "time": 1145140810,
+        "mentors": ["Remilia Scarlet", "Flandre Scarlet", "Sakuya Iyazoi"],
+        "TA": ["Sanae Kochiya", "Moriya Suwako"],
+        "students": ["Youmu Konpaku", "Yuyuko Saigyouji"],
+        "requests": [
+
+        ]        
+    }
+],
+
+"users":
+
+[
+    {
+        "userName": "Alice Margatroid",
+        "uuid": 57895789
+    },
+    {
+        "userName": "Reimu Hakurei",
+        "uuid": 51899999
+    },
+    {
+        "userName": "Marisa Kirisame",
+        "uuid": 66668866
+    }
+]
+
+
+}
+
+
