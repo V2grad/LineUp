@@ -39,6 +39,10 @@ UserSchema.path('name').validate(function(name) {
 }, 'Name cannot be blank')
 
 /**
+ * Query
+ */
+
+/**
  * Pre-save hook
  */
 
@@ -116,4 +120,5 @@ UserSchema.statics = {
   }
 }
 
-export default () => mongoose.model('User', UserSchema)
+const User = mongoose.model('User', UserSchema)
+export default () => User

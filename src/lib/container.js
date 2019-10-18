@@ -15,7 +15,10 @@ const modulesToLoad = [
   // Services should be scoped to the request.
   // This means that each request gets a separate instance
   // of a service.
-  ['services/*.js', Lifetime.SCOPED],
+  ['services/*.js', Lifetime.SCOPED]
+]
+
+const modelsToLoad = [
   // Stores will be singleton (1 instance per process).
   // This is just for demo purposes, you can do whatever you want.
   [
@@ -39,6 +42,14 @@ export function configureContainer() {
     injectionMode: InjectionMode.CLASSIC
   }
   return createContainer(opts)
+    .loadModules(modelsToLoad, {
+      cwd: `${__dirname}/..`,
+      formatName: name => {
+        let n = `${name.charAt(0).toUpperCase()}${name.substring(1)}`
+        logger.info(`Model ${n} has loaded!`)
+        return n
+      }
+    })
     .loadModules(modulesToLoad, {
       // `modulesToLoad` paths should be relative
       // to this file's parent directory.

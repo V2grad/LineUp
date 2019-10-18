@@ -11,10 +11,11 @@ const assertId = BadRequest.makeAssert('No id given')
  * Todo Service.
  * Gets a todo store injected.
  */
-export default class UserService {
-  constructor(User, logger) {
+export default class EventService {
+  constructor(Event, User, logger) {
     this.logger = logger
     this.user = User
+    this.event = Event
   }
 
   async find(params) {

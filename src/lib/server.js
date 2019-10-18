@@ -23,6 +23,15 @@ export async function createServer() {
   logger.debug('Creating server...')
   const app = new Koa()
 
+  const db = await connect()
+
+  if (!db) {
+    logger.error('Unable to init database, please check...')
+    return
+  } else {
+    logger.debug("Database Init successfully! Let's move on!")
+  }
+
   // Container is configured with our services and whatnot.
   const container = (app.container = configureContainer())
   app
@@ -48,16 +57,6 @@ export async function createServer() {
 
   // Creates a http server ready to listen.
   const server = http.createServer(app.callback())
-
-  const db = await connect()
-
-  if (!db) {
-    logger.error('Unable to init database, please check...')
-    server.close()
-    return
-  } else {
-    logger.debug("Database Init successfully! Let's move on!")
-  }
 
   // Add a `close` event listener so we can clean up resources.
   server.on('close', () => {
