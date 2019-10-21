@@ -16,7 +16,8 @@ const EventSchema = new Schema({
   assistants_id: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   users_id: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   lines: [{ type: String, required: true }],
-  passcode: { type: String, required: true }
+  passcode: { type: String, required: true },
+  admin_code: { type: String, required: true}
 })
 
 /**
