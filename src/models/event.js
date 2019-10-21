@@ -14,7 +14,7 @@ const EventSchema = new Schema({
     ref: 'User'
   },
   assistants_id: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-  users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  users_id: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   lines: [{ type: String, required: true }]
 })
 
@@ -25,7 +25,21 @@ EventSchema.virtual('creator', {
   ref: 'User',
   localField: 'creator_id',
   foreignField: '_id',
-  justOne: true // Only return one BookType
+  justOne: true // Only return one User
+})
+
+EventSchema.virtual('users', {
+  ref: 'User',
+  localField: 'users_id',
+  foreignField: '_id',
+  justOne: false
+})
+
+EventSchema.virtual('assistants', {
+  ref: 'User',
+  localField: 'assistants_id',
+  foreignField: '_id',
+  justOne: false
 })
 
 /**
@@ -35,6 +49,14 @@ EventSchema.query.byName = function(name) {
   return this.where({
     name
   })
+}
+
+EventSchema.query.byId = function(id) {
+  return this.where({
+    _id: id
+  }).populate('creator', '-_id -__v -passcode')
+  //  .populate('assistants', '-_id -__v -passcode')
+  //  .populate('users', '-_id -__v -passcode')
 }
 
 // UserSchema.virtual('password')

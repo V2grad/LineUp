@@ -10,7 +10,8 @@ const Schema = mongoose.Schema
 const UserSchema = new Schema({
   name: { type: String, required: true },
   passcode: { type: String, required: true },
-  preferred_name: { type: String, default: '' }
+  preferred_name: { type: String, default: '' },
+  event_id: { type: Schema.Types.ObjectId, ref: 'Event' }
 })
 
 /**
@@ -28,15 +29,12 @@ UserSchema.query.validateUser = function({ id, code }) {
  * Virtuals
  */
 
-// UserSchema.virtual('password')
-//   .set(function(password) {
-//     this._password = password;
-//     this.salt = this.makeSalt();
-//     this.hashed_password = this.encryptPassword(password);
-//   })
-//   .get(function() {
-//     return this._password;
-//   });
+UserSchema.virtual('event', {
+  ref: 'Event',
+  localField: 'event_id',
+  foreignField: '_id',
+  justOne: true // Only return one Event
+})
 
 /**
  * Validations
@@ -52,6 +50,14 @@ UserSchema.query.validateUser = function({ id, code }) {
 /**
  * Query
  */
+
+UserSchema.query.byId = function(id) {
+  return this.where({
+    _id: id
+  })
+    .populate('event')
+    .select('-_id, -__v, -passcode')
+}
 
 /**
  * Pre-save hook

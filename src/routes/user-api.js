@@ -1,4 +1,5 @@
 import { createController } from 'awilix-koa'
+import { retrieveUser } from '../middleware/retrieve-user'
 
 // This is our API controller.
 // All it does is map HTTP calls to service calls.
@@ -18,8 +19,6 @@ const api = userService => ({
 // https://github.com/jeffijoe/awilix-router-core
 export default createController(api)
   .prefix('/user')
-  .before([])
-  .get('/:id', 'getUser')
-  .put('', 'createUser')
-  .post('/:id', 'updateUser')
-  .delete('/:id', 'deleteUser')
+  .before([retrieveUser])
+  .post('', 'updateUser')
+  .delete('', 'deleteUser')
