@@ -8,8 +8,7 @@ const assertId = BadRequest.makeAssert('No id given')
 // const pickProps = data => pick(data, ['name', 'completed'])
 
 /**
- * Todo Service.
- * Gets a todo store injected.
+ * Event Service.
  */
 export default class EventService {
   constructor(Event, User, logger, currentUser) {
@@ -24,7 +23,6 @@ export default class EventService {
     // If `todoStore.get()` returns a falsy value, we throw a
     // NotFound error with the specified message.
 
-    console.log(this.currentUser)
     return this.event
       .findById(id)
       .then(doc => {
@@ -41,6 +39,7 @@ export default class EventService {
     BadRequest.assert(data.name, 'name is required')
     BadRequest.assert(data.name.length < 20, 'name is too long')
     BadRequest.assert(data.lines.length > 1, 'Lines is required')
+
     return this.event
       .create({
         name: data.name,

@@ -1,4 +1,4 @@
-import { NotFound, BadRequest, GeneralError } from 'fejl'
+import { BadRequest, GeneralError } from 'fejl'
 // import { pick } from 'lodash'
 
 // Prefab assert function.
@@ -12,43 +12,14 @@ const assertId = BadRequest.makeAssert('No id given')
  * Gets a todo store injected.
  */
 export default class UserService {
-  constructor(User, logger) {
+  constructor(User, logger, currentUser) {
     this.logger = logger
     this.user = User
+    this.currentUser = currentUser
   }
 
-  async find(params) {
-    return this.todoStore.find(params)
-  }
-
-  async get(id) {
-    assertId(id)
-    // If `todoStore.get()` returns a falsy value, we throw a
-    // NotFound error with the specified message.
-
-    return this.user
-      .findById(id)
-      .then(doc => {
-        return doc
-      })
-      .catch(() => {
-        return NotFound.assert(null, `Todo with id "${id}" not found`) // We use fuji this way for now
-      })
-  }
-
-  async create(data) {
-    BadRequest.assert(data, 'No payload given')
-    BadRequest.assert(data.name, 'name is required')
-    BadRequest.assert(data.name.length < 20, 'name is too long')
-    return this.user
-      .create({
-        name: data.name
-      })
-      .then(res => res)
-      .catch(err => {
-        this.logger.error(err)
-        return GeneralError.assert(null, 'User not created.')
-      })
+  async get() {
+    return this.currentUser
   }
 
   async update(id, data) {
@@ -75,10 +46,7 @@ export default class UserService {
   }
 
   async remove(id) {
-    // Make sure the todo exists by calling `get`.
-    let doc = await this.get(id)
-
-    return doc
+    return this.currentUser
       .remove()
       .then(res => {
         return `User ${id} removed`
