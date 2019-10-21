@@ -1,5 +1,5 @@
 import { BadRequest, GeneralError } from 'fejl'
-// import { pick } from 'lodash'
+import BadUser from '../errors/bad-user'
 
 /**
  * Auth Service.
@@ -28,7 +28,7 @@ export default class AuthService {
         return null
       })
 
-    BadRequest.assert(user, 'User is not vaild :(')
+    BadUser.assert(user, 'User is not vaild :(')
     return user
   }
 

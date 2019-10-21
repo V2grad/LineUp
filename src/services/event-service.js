@@ -49,11 +49,12 @@ export default class EventService {
       .then(doc => {
         // Bind user side
         this.currentUser.event_id = doc._id
-        return this.currentUser.save()
+        this.currentUser.save()
+        return doc
       })
       .catch(err => {
         this.logger.error(err)
-        return GeneralError.assert(null, 'User not created.')
+        return GeneralError.assert(null, 'Event not created.')
       })
   }
 

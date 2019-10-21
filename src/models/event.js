@@ -9,13 +9,12 @@ const Schema = mongoose.Schema
 
 const EventSchema = new Schema({
   name: { type: String, required: true },
-  eid: { type: String, required: true },
   creator_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
   assistants_id: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-  users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  users_id: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   lines: [{ type: String, required: true }],
   passcode: { type: String, required: true }
 })

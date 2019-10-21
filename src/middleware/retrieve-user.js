@@ -1,5 +1,6 @@
 import User from '../models/user'
 import { BadRequest } from 'fejl'
+import BadUser from '../errors/bad-user'
 import { asValue } from 'awilix'
 import { logger } from '../lib/logger'
 
@@ -25,12 +26,10 @@ export async function retrieveUser(ctx, next) {
       return null
     })
 
-  BadRequest.assert(user, 'User is not vaild :(')
+  BadUser.assert(user, 'User is not vaild :(')
 
   ctx.state.container.register({
-    currentUser: asValue({
-      user
-    })
+    currentUser: asValue(user)
   })
   return next()
 }

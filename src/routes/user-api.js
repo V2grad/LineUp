@@ -6,12 +6,12 @@ import { retrieveUser } from '../middleware/retrieve-user'
 // This way our services could be used in any type of app, not
 // just over HTTP.
 const api = userService => ({
-  getUser: async ctx => ctx.ok(await userService.get(ctx.params.id)),
+  getUser: async ctx => ctx.ok(await userService.get()),
   createUser: async ctx =>
     ctx.created(await userService.create(ctx.request.body)),
   updateUser: async ctx =>
-    ctx.update(await userService.update(ctx.params.id, ctx.request.body)),
-  deleteUser: async ctx => ctx.delete(await userService.delete(ctx.params.id))
+    ctx.update(await userService.update(ctx.request.body)),
+  deleteUser: async ctx => ctx.delete(await userService.delete())
 })
 
 // Maps routes to method calls on the `api` controller.

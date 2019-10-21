@@ -1,8 +1,4 @@
 import { BadRequest, GeneralError } from 'fejl'
-// import { pick } from 'lodash'
-
-// Prefab assert function.
-const assertId = BadRequest.makeAssert('No id given')
 
 // Prevent overposting.
 // const pickProps = data => pick(data, ['name', 'completed'])
@@ -22,21 +18,15 @@ export default class UserService {
     return this.currentUser
   }
 
-  async update(id, data) {
-    assertId(id)
+  async update(data) {
     BadRequest.assert(data, 'No payload given')
     BadRequest.assert(data.name, 'name is required')
     BadRequest.assert(data.name.length < 20, 'name is too long')
 
-    // Make sure the user exists by calling `get`.
-    let doc = await this.get(id)
-
     // Update
-    if (doc) {
-      doc.name = data.name
-    }
+    this.currentUser.name = data.name
 
-    return doc
+    return this.currentUser
       .save()
       .then(res => res)
       .catch(err => {
@@ -45,11 +35,13 @@ export default class UserService {
       })
   }
 
-  async remove(id) {
+  async remove() {
     return this.currentUser
       .remove()
       .then(res => {
-        return `User ${id} removed`
+        return {
+          message: `User ${res._id} removed`
+        }
       })
       .catch(err => {
         this.logger.error(err)
