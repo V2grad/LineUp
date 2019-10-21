@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import crypto from 'crypto'
 
 const Schema = mongoose.Schema
 
@@ -14,8 +15,9 @@ const EventSchema = new Schema({
     ref: 'User'
   },
   assistants_id: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-  users_id: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-  lines: [{ type: String, required: true }]
+  users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  lines: [{ type: String, required: true }],
+  passcode: { type: String, required: true }
 })
 
 /**
@@ -58,6 +60,16 @@ EventSchema.query.byId = function(id) {
   //  .populate('assistants', '-_id -__v -passcode')
   //  .populate('users', '-_id -__v -passcode')
 }
+/**
+ * Create PassCode for common users
+ */
+EventSchema.pre('validate', function(next) {
+  if (!this.pass_code) {
+    // Generate a 6 character long passcode for common users
+    this.passcode = crypto.randomBytes(3).toString('hex')
+  }
+  next()
+})
 
 // UserSchema.virtual('password')
 //   .set(function(password) {
