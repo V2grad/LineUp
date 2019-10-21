@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import crypto from 'crypto'
 
 const Schema = mongoose.Schema
 
@@ -8,10 +9,20 @@ const Schema = mongoose.Schema
 
 const UserSchema = new Schema({
   name: { type: String, required: true },
+  passcode: { type: String, required: true },
   preferred_name: { type: String, default: '' }
 })
 
-// const validatePresenceOf = value => value && value.length
+/**
+ * User Query
+ */
+
+UserSchema.query.validateUser = function({ id, code }) {
+  return this.where({
+    _id: id,
+    passcode: code
+  }).findOne()
+}
 
 /**
  * Virtuals
@@ -33,10 +44,10 @@ const UserSchema = new Schema({
 
 // the below 5 validations only apply if you are signing up traditionally
 
-UserSchema.path('name').validate(function(name) {
-  if (this.skipValidation()) return true
-  return name.length
-}, 'Name cannot be blank')
+// UserSchema.path('passcode').validate(function(name) {
+//   if (this.skipValidation()) return true
+//   return name.length
+// }, 'Name cannot be blank')
 
 /**
  * Query
@@ -46,15 +57,15 @@ UserSchema.path('name').validate(function(name) {
  * Pre-save hook
  */
 
-// UserSchema.pre('save', function(next) {
-//   if (!this.isNew) return next();
+UserSchema.pre('validate', function(next) {
+  if (!this.isNew) return next()
 
-//   if (!validatePresenceOf(this.password) && !this.skipValidation()) {
-//     next(new Error('Invalid password'));
-//   } else {
-//     next();
-//   }
-// });
+  if (!this.passcode) {
+    this.passcode = crypto.randomBytes(20).toString('hex')
+  }
+
+  next()
+})
 
 /**
  * Methods
@@ -121,4 +132,4 @@ UserSchema.statics = {
 }
 
 const User = mongoose.model('User', UserSchema)
-export default () => User
+export default User

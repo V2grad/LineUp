@@ -14,7 +14,8 @@ const EventSchema = new Schema({
     ref: 'User'
   },
   assistants_id: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-  users: [{ type: Schema.Types.ObjectId, ref: 'User' }]
+  users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  lines: [{ type: String, required: true }]
 })
 
 /**

@@ -31,8 +31,7 @@ export default class UserService {
       .then(doc => {
         return doc
       })
-      .catch(err => {
-        this.logger.error(err)
+      .catch(() => {
         return NotFound.assert(null, `Todo with id "${id}" not found`) // We use fuji this way for now
       })
   }

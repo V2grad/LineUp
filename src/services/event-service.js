@@ -12,14 +12,11 @@ const assertId = BadRequest.makeAssert('No id given')
  * Gets a todo store injected.
  */
 export default class EventService {
-  constructor(Event, User, logger) {
+  constructor(Event, User, logger, currentUser) {
     this.logger = logger
     this.user = User
     this.event = Event
-  }
-
-  async find(params) {
-    return this.todoStore.find(params)
+    this.currentUser = currentUser
   }
 
   async get(id) {
@@ -27,14 +24,15 @@ export default class EventService {
     // If `todoStore.get()` returns a falsy value, we throw a
     // NotFound error with the specified message.
 
-    return this.user
+    console.log(this.currentUser)
+    return this.event
       .findById(id)
       .then(doc => {
         return doc
       })
       .catch(err => {
         this.logger.error(err)
-        return NotFound.assert(null, `Todo with id "${id}" not found`) // We use fuji this way for now
+        return NotFound.assert(null, `Event with id "${id}" not found`) // We use fuji this way for now
       })
   }
 
@@ -42,11 +40,18 @@ export default class EventService {
     BadRequest.assert(data, 'No payload given')
     BadRequest.assert(data.name, 'name is required')
     BadRequest.assert(data.name.length < 20, 'name is too long')
-    return this.user
+    BadRequest.assert(data.lines.length > 1, 'Lines is required')
+    return this.event
       .create({
-        name: data.name
+        name: data.name,
+        lines: data.lines,
+        creator: this.currentUser._id
       })
-      .then(res => res)
+      .then(doc => {
+        // Bind user side
+        this.currentUser.event_id = doc._id
+        return this.currentUser.save()
+      })
       .catch(err => {
         this.logger.error(err)
         return GeneralError.assert(null, 'User not created.')

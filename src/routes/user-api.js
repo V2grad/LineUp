@@ -18,6 +18,7 @@ const api = userService => ({
 // https://github.com/jeffijoe/awilix-router-core
 export default createController(api)
   .prefix('/user')
+  .before([])
   .get('/:id', 'getUser')
   .put('', 'createUser')
   .post('/:id', 'updateUser')

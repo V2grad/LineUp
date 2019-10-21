@@ -1,4 +1,5 @@
 import { createController } from 'awilix-koa'
+import { retrieveUser } from '../middleware/retrieve-user'
 
 // This is our API controller.
 // All it does is map HTTP calls to service calls.
@@ -18,6 +19,7 @@ const api = eventService => ({
 // https://github.com/jeffijoe/awilix-router-core
 export default createController(api)
   .prefix('/event')
+  .before([retrieveUser])
   .get('/:id', 'getEvent')
   .put('', 'createEvent')
   .post('/:id', 'updateEvent')

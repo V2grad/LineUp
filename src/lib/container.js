@@ -1,10 +1,4 @@
-import {
-  createContainer,
-  Lifetime,
-  InjectionMode,
-  asValue,
-  asFunction
-} from 'awilix'
+import { createContainer, Lifetime, InjectionMode, asValue } from 'awilix'
 import { logger } from './logger'
 
 /**
@@ -24,7 +18,7 @@ const modelsToLoad = [
   [
     'models/*.js',
     {
-      register: asFunction,
+      register: asValue,
       lifetime: Lifetime.SINGLETON
     }
   ]
