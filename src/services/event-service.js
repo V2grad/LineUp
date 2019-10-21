@@ -67,9 +67,12 @@ export default class EventService {
     // Make sure the user exists by calling `get`.
     let doc = await this.get(id)
 
-    // Update
+    // Update event name, assistants, users and lines
     if (doc) {
       doc.name = data.name
+      doc.assistants_id = data.assistants_id
+      doc.users = data.users
+      doc.lines = data.lines
     }
 
     return doc
