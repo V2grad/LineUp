@@ -15,7 +15,8 @@ const EventSchema = new Schema({
   },
   assistants_id: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-  lines: [{ type: String, required: true }]
+  lines: [{ type: String, required: true }],
+  pass_code: { type: String, required: true }
 })
 
 /**
@@ -36,6 +37,19 @@ EventSchema.query.byName = function(name) {
     name
   })
 }
+
+/**
+ * Create PassCode for common users
+ */
+EventSchema.pre('validate', () => {
+  if (!this.pass_code) {
+    // Generate a 6 character long passcode for common users
+    this.pass_code = Math.random()
+      .toString(36)
+      .substring(2, 8)
+      .toUpperCase()
+  }
+})
 
 // UserSchema.virtual('password')
 //   .set(function(password) {
