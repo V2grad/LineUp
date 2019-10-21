@@ -78,42 +78,16 @@ UserSchema.pre('validate', function(next) {
  */
 
 UserSchema.methods = {
-  /**
-   * Authenticate - check if the passwords are the same
-   *
-   * @param {String} plainText
-   * @return {Boolean}
-   * @api public
-   */
+  isJoined: function() {
+    return this.event_id !== null
+  },
+  isCreator: function(id) {
+    if (typeof id === 'string') {
+      return this.event_id.toString() === id
+    }
 
-  //   authenticate: function(plainText) {
-  //     return this.encryptPassword(plainText) === this.hashed_password;
-  //   },
-
-  /**
-   * Encrypt password
-   *
-   * @param {String} password
-   * @return {String}
-   * @api public
-   */
-
-  //   encryptPassword: function(password) {
-  //     if (!password) return '';
-  //     try {
-  //       return crypto
-  //         .createHmac('sha1', this.salt)
-  //         .update(password)
-  //         .digest('hex');
-  //     } catch (err) {
-  //       return '';
-  //     }
-  //   },
-
-  /**
-   * Validation is not required if using OAuth
-   */
-
+    return this.event_id.equals(id)
+  },
   skipValidation: function() {
     return true
   }

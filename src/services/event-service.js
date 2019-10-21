@@ -2,13 +2,15 @@ import { NotFound, BadRequest, GeneralError } from 'fejl'
 // import { pick } from 'lodash'
 
 // Prefab assert function.
-const assertId = BadRequest.makeAssert('No id given')
+const assertId = BadRequest.makeAssert('No event id given')
+const assertEvent = NotFound.makeAssert('Event Not Found')
 
 // Prevent overposting.
 // const pickProps = data => pick(data, ['name', 'completed'])
 
 /**
  * Event Service.
+ * @TODO clean up the event creator verification
  */
 export default class EventService {
   constructor(Event, User, logger, currentUser) {
@@ -20,18 +22,22 @@ export default class EventService {
 
   async get(id) {
     assertId(id)
-    // If `todoStore.get()` returns a falsy value, we throw a
-    // NotFound error with the specified message.
 
     return this.event
       .findById(id)
       .then(doc => {
-        return doc
+        return assertEvent(doc)
       })
       .catch(err => {
         this.logger.error(err)
-        return NotFound.assert(null, `Event with id "${id}" not found`) // We use fuji this way for now
+        return assertEvent(null)
       })
+  }
+
+  async join(id, data) {
+    assertId(id)
+    BadRequest.assert(data, 'No payload given')
+    BadRequest.assert(data.passcode, 'No passcode given')
   }
 
   async create(data) {
@@ -65,30 +71,34 @@ export default class EventService {
     BadRequest.assert(data.name.length < 20, 'name is too long')
 
     // Make sure the user exists by calling `get`.
-    let doc = await this.get(id)
+    let event = await this.get(id)
 
-    // Update event name, assistants, users and lines
-    if (doc) {
-      doc.name = data.name
-      doc.assistants_id = data.assistants_id
-      doc.users = data.users
-      doc.lines = data.lines
+    if (!this.currentUser.isCreator(event._id)) {
+      BadRequest.assert(null, 'Attmept to modify non-creator event!')
     }
 
-    return doc
+    // Update event name, assistants, users and lines
+    event.name = data.name
+    event.lines = data.lines
+
+    return event
       .save()
       .then(res => res)
       .catch(err => {
         this.logger.error(err)
-        return GeneralError.assert(null, 'User not updated')
+        return GeneralError.assert(null, 'Event not updated')
       })
   }
 
   async remove(id) {
     // Make sure the todo exists by calling `get`.
-    let doc = await this.get(id)
+    let event = await this.get(id)
 
-    return doc
+    if (!this.currentUser.isCreator(event._id)) {
+      BadRequest.assert(null, 'Attmept to modify non-creator event!')
+    }
+
+    return event
       .remove()
       .then(res => {
         return `User ${id} removed`
