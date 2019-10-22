@@ -17,7 +17,7 @@ const EventSchema = new Schema({
   users_id: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   lines: [{ type: String, required: true }],
   passcode: { type: String, required: true },
-  admin_code: { type: String, required: true}
+  admin_code: { type: String, required: true }
 })
 
 /**
@@ -64,9 +64,13 @@ EventSchema.query.byId = function(id) {
  * Create PassCode for common users
  */
 EventSchema.pre('validate', function(next) {
-  if (!this.pass_code) {
+  if (!this.passcode) {
     // Generate a 6 character long passcode for common users
     this.passcode = crypto.randomBytes(3).toString('hex')
+  }
+  if (!this.admin_code) {
+    // Generate a 6 character long passcode for assistants
+    this.admin_code = crypto.randomBytes(3).toString('hex')
   }
   next()
 })
