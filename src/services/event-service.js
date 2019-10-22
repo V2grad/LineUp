@@ -64,6 +64,33 @@ export default class EventService {
       })
   }
 
+  async addAssistant(id, data) {
+    /**
+     * Adds assistant manually to event
+     * Checks if the maker of request is admin of target event, and add assistant id to event
+     * @param data
+     * @returns {boolean} True if success, False otherwise
+     */
+    assertId(id)
+    BadRequest.assert(data, 'No assistant id given')
+
+    let event = await this.get(id)
+
+    if (!this.currentUser.isCreator(event._id)) {
+      BadRequest.assert(null, 'Attempt to add assistant to non-creator event!')
+    }
+
+    event.assistants_id.push(data)
+
+    return event
+      .save()
+      .then(res => res)
+      .catch(err => {
+        this.logger.error(err)
+        return GeneralError.assert(null, 'Event not updated')
+      })
+  }
+
   async update(id, data) {
     assertId(id)
     BadRequest.assert(data, 'No payload given')
