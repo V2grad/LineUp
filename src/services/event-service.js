@@ -34,10 +34,27 @@ export default class EventService {
       })
   }
 
-  async join(id, data) {
+  async joinUser(id, data) {
     assertId(id)
     BadRequest.assert(data, 'No payload given')
     BadRequest.assert(data.passcode, 'No passcode given')
+    
+    let event = await this.get(id)
+    /*if (!this.currentUser.isCreator(event._id)) {
+      BadRequest.assert(null, 'Attmept to modify non-creator event!')
+    }*/
+    BadRequest.assert(event.passcode !== data.passcode, 'User passcode does not match with event passcode!')
+    // add user into users_id
+    event.users_id.push(data.user_id)
+
+    return event
+      .save()
+      .then(res => res)
+      .catch(err => {
+        this.logger.error(err)
+        return GeneralError.assert(null, 'Event not updated')
+      })
+
   }
 
   async create(data) {
