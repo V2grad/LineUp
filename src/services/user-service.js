@@ -25,6 +25,9 @@ export default class UserService {
 
     // Update
     this.currentUser.name = data.name
+    this.currentUser.passcode = data.passcode
+    this.currentUser.preferred_name = data.preferred_name
+    this.currentUser.event_id = data.event_id
 
     return this.currentUser
       .save()
