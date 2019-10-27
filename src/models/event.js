@@ -7,6 +7,14 @@ const Schema = mongoose.Schema
  * User Schema
  */
 
+const RequestSchema = new Schema({
+  request_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  from: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  category: { type: String, required: true },
+  appoint: { type: Schema.Types.ObjectId, ref: 'User' }, // What does ref do?
+  time_created: { type: Number, required: true }
+})
+
 const EventSchema = new Schema({
   name: { type: String, required: true },
   creator_id: {
@@ -16,6 +24,7 @@ const EventSchema = new Schema({
   assistants_id: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   users_id: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   lines: [{ type: String, required: true }],
+  requests: [RequestSchema],
   passcode: { type: String, required: true },
   admin_code: { type: String, required: true }
 })
