@@ -64,10 +64,6 @@ export default class EventService {
 
     let event = await this.get(id)
 
-    if (!this.currentUser.isCreator(event._id)) {
-      BadRequest.assert(null, 'Attmept to modify non-creator event!')
-    }
-
     BadRequest.assert(
       event.admin_code !== data.passcode,
       'User admin_code does not match with event admin_code!'
@@ -124,7 +120,7 @@ export default class EventService {
       BadRequest.assert(null, 'Attempt to add assistant to non-creator event!')
     }
 
-    event.assistants_id.push(data)
+    event.assistants_id.push(data.userId)
 
     return event
       .save()
@@ -179,4 +175,8 @@ export default class EventService {
         return GeneralError.assert(null, 'User not removed')
       })
   }
+
+  // Methods that handle requests
+  async 
+
 }

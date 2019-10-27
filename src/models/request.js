@@ -1,25 +1,18 @@
 import mongoose from 'mongoose'
 import crypto from 'crypto'
 
-
 const Schema = mongoose.Schema
 
 /**
- * Event Schema
+ * Request Schema
  */
 
-const EventSchema = new Schema({
-  name: { type: String, required: true },
-  creator_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  },
-  assistants_id: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-  users_id: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-  lines: [{ type: String, required: true }],
-  requests: [{ type: Schema.Types.ObjectId, ref: 'Request' }],
-  passcode: { type: String, required: true },
-  admin_code: { type: String, required: true }
+const RequestSchema = new Schema({
+  request_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  from: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  category: { type: String, required: true },
+  appoint: { type: Schema.Types.ObjectId, ref: 'User' }, // What does ref do?
+  time_created: { type: Number, required: true }
 })
 
 /**
@@ -172,5 +165,5 @@ EventSchema.methods = {
 //   }
 // }
 
-const Event = mongoose.model('Event', EventSchema)
-export default Event
+const Request = mongoose.model('Request', RequestSchema)
+export default Request
