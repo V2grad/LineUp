@@ -177,6 +177,6 @@ export default class EventService {
   }
 
   // Methods that handle requests
-  async 
+  //async 
 
 }
