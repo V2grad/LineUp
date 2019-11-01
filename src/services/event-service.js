@@ -42,14 +42,12 @@ export default class EventService {
     let event = await this.get(id)
 
     BadRequest.assert(
-      event.passcode !== data.passcode,
+      event.passcode === data.passcode,
       'User passcode does not match with event passcode!'
     )
-    // add user into users_id
-    event.users_id.push(data.user_id)
 
     return event
-      .save()
+      .addUser(this.currentUser._id)
       .then(res => res)
       .catch(err => {
         this.logger.error(err)
@@ -65,14 +63,13 @@ export default class EventService {
     let event = await this.get(id)
 
     BadRequest.assert(
-      event.admin_code !== data.passcode,
+      event.admin_code === data.passcode,
       'User admin_code does not match with event admin_code!'
     )
     // add user into users_id
-    event.assistants_id.push(data.user_id)
 
     return event
-      .save()
+      .addAssistant(this.currentUser._id)
       .then(res => res)
       .catch(err => {
         this.logger.error(err)
@@ -104,26 +101,26 @@ export default class EventService {
       })
   }
 
+  /**
+   * Adds assistant manually to event
+   * Checks if the maker of request is admin of target event, and add assistant id to event
+   * @param data
+   * @returns {boolean} True if success, False otherwise
+   */
   async addAssistant(id, data) {
-    /**
-     * Adds assistant manually to event
-     * Checks if the maker of request is admin of target event, and add assistant id to event
-     * @param data
-     * @returns {boolean} True if success, False otherwise
-     */
     assertId(id)
-    BadRequest.assert(data, 'No assistant id given')
+    BadRequest.assert(data, 'No payload Given')
+    BadRequest.assert(data.user_id, 'No user id given')
 
     let event = await this.get(id)
 
-    if (!this.currentUser.isCreator(event._id)) {
-      BadRequest.assert(null, 'Attempt to add assistant to non-creator event!')
-    }
-
-    event.assistants_id.push(data.userId)
+    BadRequest.assert(
+      this.currentUser.isCreator(event._id),
+      'Attempt to add assistant to non-creator event!'
+    )
 
     return event
-      .save()
+      .addAssistant(data.user_id)
       .then(res => res)
       .catch(err => {
         this.logger.error(err)
@@ -177,6 +174,5 @@ export default class EventService {
   }
 
   // Methods that handle requests
-  //async 
-
+  // async
 }

@@ -88,6 +88,10 @@ UserSchema.methods = {
 
     return this.event_id.equals(id)
   },
+  joinEvent: function(eventId) {
+    this.event_id = eventId
+    return this.save()
+  },
   skipValidation: function() {
     return true
   }

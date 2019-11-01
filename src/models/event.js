@@ -1,7 +1,6 @@
 import mongoose from 'mongoose'
 import crypto from 'crypto'
 
-
 const Schema = mongoose.Schema
 
 /**
@@ -111,46 +110,26 @@ EventSchema.pre('validate', function(next) {
  * Methods
  */
 
-EventSchema.methods = {
-  /**
-   * Authenticate - check if the passwords are the same
-   *
-   * @param {String} plainText
-   * @return {Boolean}
-   * @api public
-   */
-
-  //   authenticate: function(plainText) {
-  //     return this.encryptPassword(plainText) === this.hashed_password;
-  //   },
-
-  /**
-   * Encrypt password
-   *
-   * @param {String} password
-   * @return {String}
-   * @api public
-   */
-
-  //   encryptPassword: function(password) {
-  //     if (!password) return '';
-  //     try {
-  //       return crypto
-  //         .createHmac('sha1', this.salt)
-  //         .update(password)
-  //         .digest('hex');
-  //     } catch (err) {
-  //       return '';
-  //     }
-  //   },
-
-  /**
-   * Validation is not required if using OAuth
-   */
-
-  skipValidation: function() {
-    return true
+EventSchema.methods.isCreator = function(id) {
+  if (typeof id === 'string') {
+    return this.creator_id.toString() === id
   }
+
+  return this.creator_id.equals(id)
+}
+
+EventSchema.methods.isUserExist = function(id) {
+  return this.users_id.indexOf(id) !== -1
+}
+
+EventSchema.methods.addUser = function(id) {
+  this.users_id.push(id)
+  return this.save()
+}
+
+EventSchema.methods.addAssistent = function(id) {
+  this.assistants_id.push(id)
+  return this.save()
 }
 
 /**
