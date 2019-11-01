@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import crypto from 'crypto'
+// import crypto from 'crypto'
 
 const Schema = mongoose.Schema
 
@@ -25,48 +25,12 @@ RequestSchema.virtual('fromUser', {
   justOne: true // Only return one User
 })
 
-RequestSchema.virtual('appointAssistant', {
+RequestSchema.virtual('assistantAppointed', {
   ref: 'User',
   localField: 'appoint',
   foreignField: '_id',
   justOne: true // Only return one User
 })
-
-
-// UserSchema.virtual('password')
-//   .set(function(password) {
-//     this._password = password;
-//     this.salt = this.makeSalt();
-//     this.hashed_password = this.encryptPassword(password);
-//   })
-//   .get(function() {
-//     return this._password;
-//   });
-
-/**
- * Validations
- */
-
-// the below 5 validations only apply if you are signing up traditionally
-
-/**
- * Pre-save hook
- */
-
-// UserSchema.pre('save', function(next) {
-//   if (!this.isNew) return next();
-
-//   if (!validatePresenceOf(this.password) && !this.skipValidation()) {
-//     next(new Error('Invalid password'));
-//   } else {
-//     next();
-//   }
-// });
-
-/**
- * Methods
- */
-
 
 const Request = mongoose.model('Request', RequestSchema)
 export default Request

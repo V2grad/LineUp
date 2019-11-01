@@ -34,6 +34,7 @@ export default class EventService {
       })
   }
 
+  // joins User by Passcode
   async joinUser(id, data) {
     assertId(id)
     BadRequest.assert(data, 'No payload given')
@@ -57,6 +58,7 @@ export default class EventService {
       })
   }
 
+  // joins Assistant by Admin-Code
   async joinAssistant(id, data) {
     assertId(id)
     BadRequest.assert(data, 'No payload given')
@@ -104,6 +106,7 @@ export default class EventService {
       })
   }
 
+  // Manually add Assistants
   async addAssistant(id, data) {
     /**
      * Adds assistant manually to event
@@ -131,6 +134,7 @@ export default class EventService {
       })
   }
 
+  // Update the Name of Event
   async update(id, data) {
     assertId(id)
     BadRequest.assert(data, 'No payload given')
@@ -177,6 +181,5 @@ export default class EventService {
   }
 
   // Methods that handle requests
-  //async 
-
+  // async
 }
