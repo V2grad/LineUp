@@ -16,7 +16,7 @@ const EventSchema = new Schema({
   assistants_id: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   users_id: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   lines: [{ type: String, required: true }],
-  requests: [{ type: Schema.Types.ObjectId, ref: 'Request' }],
+  requests_id: [{ type: Schema.Types.ObjectId, ref: 'Request' }],
   passcode: { type: String, required: true },
   admin_code: { type: String, required: true }
 })
@@ -41,6 +41,13 @@ EventSchema.virtual('users', {
 EventSchema.virtual('assistants', {
   ref: 'User',
   localField: 'assistants_id',
+  foreignField: '_id',
+  justOne: false
+})
+
+EventSchema.virtual('requests', {
+  ref: 'Request',
+  localField: 'requests_id',
   foreignField: '_id',
   justOne: false
 })
