@@ -144,6 +144,14 @@ EventSchema.methods.addRequest = function(id) {
   return this.save()
 }
 
+EventSchema.methods.removeRequest = function(id) {
+  var index = this.requests_id.indexOf(id)
+  if (index !== -1) {
+    this.requests_id.splice(index, 1)
+  }
+  return this.save()
+}
+
 /**
  * Statics
  */
