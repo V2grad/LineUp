@@ -139,6 +139,11 @@ EventSchema.methods.addAssistent = function(id) {
   return this.save()
 }
 
+EventSchema.methods.addRequest = function(id) {
+  this.requests_id.push(id)
+  return this.save()
+}
+
 /**
  * Statics
  */

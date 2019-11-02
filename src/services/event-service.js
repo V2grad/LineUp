@@ -176,6 +176,25 @@ export default class EventService {
       })
   }
 
-  // Methods that handle requests
-  // async
+  /**
+   * Adds a request that is already created to the list of an event
+   * @TODO How to create new request object to the database??
+   * @param {*} id id of Event
+   * @param {*} data contains id of request
+   */
+  async addRequest(id, data) {
+    assertId(id)
+    BadRequest.assert(data, 'No payload Given')
+    BadRequest.assert(data.request_id, 'No request id given')
+
+    let event = await this.get(id)
+
+    return event
+      .addRequest(data.request_id)
+      .then(res => res)
+      .catch(err => {
+        this.logger.error(err)
+        return GeneralError.assert(null, 'Event not updated')
+      })
+  }
 }
