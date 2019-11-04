@@ -21,16 +21,24 @@ export default class RequestService {
   }
 
   async get(id) {
-      return this.request
-  }
+    assertId(id)
 
-  
+    return this.event
+      .findById(id)
+      .then(doc => {
+        return assertRequest(doc)
+      })
+      .catch(err => {
+        this.logger.error(err)
+        return assertRequest(null)
+      })
+  }
 
   async create(data) {
     BadRequest.assert(data, 'No payload given')
     BadRequest.assert(data.title, 'No title given')
     BadRequest.assert(data.title < 20, 'Title is too long')
-    BadRequest.assert(data.time_created, 'No time given') 
+    BadRequest.assert(data.time_created, 'No time given')
     BadRequest.assert(data.from, 'User not given')
     BadRequest.assert(data.category, 'Category is required')
 
@@ -64,11 +72,9 @@ export default class RequestService {
     BadRequest.assert(data.time_created, 'No time given')
     BadRequest.assert(data.from, 'User not given')
     BadRequest.assert(data.category, 'Category is required')
-    
 
     // Make sure the user exists by calling `get`.
     let request = await this.get(id)
-
 
     // Update event name, assistants, users and lines
     request.title = data.title
@@ -107,7 +113,7 @@ export default class RequestService {
    * @param {*} id id of Event
    * @param {*} data contains id of request
    */
-  /*async addRequest(id, data) {
+  /* async addRequest(id, data) {
     assertId(id)
     BadRequest.assert(data, 'No payload Given')
     BadRequest.assert(data.request_id, 'No request id given')
@@ -121,5 +127,5 @@ export default class RequestService {
         this.logger.error(err)
         return GeneralError.assert(null, 'Event not updated')
       })
-  }*/
+  } */
 }

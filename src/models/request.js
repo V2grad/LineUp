@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import options from '../mixins/models/options'
 
 const Schema = mongoose.Schema
 
@@ -6,30 +7,42 @@ const Schema = mongoose.Schema
  * Request Schema
  */
 
-const RequestSchema = new Schema({
-  title: {type: String, required: true},
-  time_created: { type: Number, required: true },
-  from: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  category: { type: String, required: true },
-  appoint: { type: Schema.Types.ObjectId, ref: 'User' } // What does ref do?
-})
+const RequestSchemaOptions = options
+
+const RequestSchema = new Schema(
+  {
+    title: { type: String, required: true },
+    event_id: { type: Schema.Types.ObjectId, ref: 'Event' },
+    creator_id: { type: Schema.Types.ObjectId, ref: 'User' },
+    label: [{ type: String }],
+    assistant_id: { type: Schema.Types.ObjectId, ref: 'User' }
+  },
+  RequestSchemaOptions
+)
 
 /**
  * Virtuals
  */
 
-RequestSchema.virtual('fromUser', {
+RequestSchema.virtual('creator', {
   ref: 'User',
   localField: 'from',
   foreignField: '_id',
   justOne: true // Only return one User
 })
 
-RequestSchema.virtual('assistantAppointed', {
+RequestSchema.virtual('assistant', {
   ref: 'User',
-  localField: 'appoint',
+  localField: 'assistant_id',
   foreignField: '_id',
   justOne: true // Only return one User
+})
+
+RequestSchema.virtual('event', {
+  ref: 'Event',
+  localField: 'event_id',
+  foreignField: '_id',
+  justOne: true
 })
 
 /**
@@ -45,14 +58,6 @@ RequestSchema.query.byId = function(id) {
 /**
  * Validation
  */
-
-RequestSchema.pre('validate', function(next) {
-  if (!this.time_created) {
-    // Generate a 6 character long passcode for common users
-    this.time_created = Date().now
-  }
-  next()
-})
 
 const Request = mongoose.model('Request', RequestSchema)
 export default Request
