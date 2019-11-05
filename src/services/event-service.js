@@ -84,7 +84,8 @@ export default class EventService {
     BadRequest.assert(data, 'No payload given')
     BadRequest.assert(data.name, 'name is required')
     BadRequest.assert(data.name.length < 20, 'name is too long')
-    BadRequest.assert(data.lines.length > 1, 'Lines is required')
+    BadRequest.assert(data.lines, 'Lines is required')
+    BadRequest.assert(data.lines.length > 1, 'Lines must be greater than 1')
 
     return this.event
       .create({
