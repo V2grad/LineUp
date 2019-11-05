@@ -5,7 +5,7 @@ import { createController } from 'awilix-koa'
 // This way our services could be used in any type of app, not
 // just over HTTP.
 const api = authService => ({
-  validate: async ctx => ctx.ok(await authService.get(ctx.header)),
+  validate: async ctx => ctx.ok(await authService.validate(ctx.header)),
   register: async ctx => ctx.created(await authService.create(ctx.request.body))
 })
 
