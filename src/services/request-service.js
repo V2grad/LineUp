@@ -1,12 +1,12 @@
 import { NotFound, BadRequest, GeneralError } from 'fejl'
-// import { pick } from 'lodash'
+import { pick } from 'lodash'
 
 // Prefab assert function.
 const assertId = BadRequest.makeAssert('No user id given')
 const assertRequest = NotFound.makeAssert('Request Not Found')
 
 // Prevent overposting.
-// const pickProps = data => pick(data, ['name', 'completed'])
+const pickRequest = data => pick(data, ['title', 'label'])
 
 /**
  * Event Service.
@@ -35,23 +35,39 @@ export default class RequestService {
   }
 
   async create(data) {
-    BadRequest.assert(data, 'No payload given')
+    BadRequest.assert(this.currentUser.isJoined(), 'No Event Joined!')
     BadRequest.assert(data.title, 'No title given')
-    BadRequest.assert(data.title < 20, 'Title is too long')
-    BadRequest.assert(data.time_created, 'No time given')
-    BadRequest.assert(data.from, 'User not given')
-    BadRequest.assert(data.category, 'Category is required')
+    BadRequest.assert(data.title < 50, 'Title is too long')
 
     return this.request
-      .create({
-        title: data.title,
-        time_created: data.time_created,
-        from: data.from,
-        category: data.category
+      .find()
+      .activeUserRequests({
+        user_id: this.currentUser._id,
+        event_id: this.currentUser.event_id
       })
-      .catch(err => {
-        this.logger.error(err)
-        return GeneralError.assert(null, 'Request not created.')
+      .then(res => {
+        return this.event
+          .findById(this.currentUser.event_id)
+          .isOktoAddRequest(res)
+      })
+      .then(res => {
+        if (res) {
+          return this.request
+            .create({
+              ...pickRequest(data),
+              creator_id: this.currentUser._id,
+              event_id: this.currentUser.event_id
+            })
+            .catch(err => {
+              this.logger.error(err)
+              return GeneralError.assert(null, 'Request not created.')
+            })
+        } else {
+          return GeneralError.assert(
+            null,
+            'Reach max number of active request!'
+          )
+        }
       })
   }
 
@@ -66,25 +82,14 @@ export default class RequestService {
   async update(id, data) {
     assertId(id)
 
-    BadRequest.assert(data, 'No payload given')
     BadRequest.assert(data.title, 'No title given')
-    BadRequest.assert(data.title < 20, 'Title is too long')
-    BadRequest.assert(data.time_created, 'No time given')
-    BadRequest.assert(data.from, 'User not given')
-    BadRequest.assert(data.category, 'Category is required')
+    BadRequest.assert(data.title < 50, 'Title is too long')
 
     // Make sure the user exists by calling `get`.
     let request = await this.get(id)
 
-    // Update event name, assistants, users and lines
-    request.title = data.title
-    request.time_created = data.time_created
-    request.from = data.from
-    request.category = data.category
-    request.appoint = data.appoint
-
     return request
-      .save()
+      .update(id, pickRequest(data))
       .then(res => res)
       .catch(err => {
         this.logger.error(err)
@@ -92,40 +97,18 @@ export default class RequestService {
       })
   }
 
+  // No Remove, mark as cancelled
   async remove(id) {
-    // Make sure the todo exists by calling `get`.
     let request = await this.get(id)
 
     return request
-      .remove()
+      .setCancelled()
       .then(() => {
-        return `Request ${id} removed`
+        return `Request ${id} cancelled`
       })
       .catch(err => {
         this.logger.error(err)
         return GeneralError.assert(null, 'Request not removed')
       })
   }
-
-  /**
-   * Adds a request that is already created to the list of an event
-   * @TODO How to create new request object to the database??
-   * @param {*} id id of Event
-   * @param {*} data contains id of request
-   */
-  /* async addRequest(id, data) {
-    assertId(id)
-    BadRequest.assert(data, 'No payload Given')
-    BadRequest.assert(data.request_id, 'No request id given')
-
-    let event = await this.get(id)
-
-    return event
-      .addRequest(data.request_id)
-      .then(res => res)
-      .catch(err => {
-        this.logger.error(err)
-        return GeneralError.assert(null, 'Event not updated')
-      })
-  } */
 }

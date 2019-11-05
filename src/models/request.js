@@ -2,6 +2,8 @@ import mongoose from 'mongoose'
 import options from '../mixins/models/options'
 
 const Schema = mongoose.Schema
+// const typeOptions = ['created', 'assigned', 'resolved', 'cancelled']
+const activeRequest = ['created', 'assigned']
 
 /**
  * Request Schema
@@ -15,7 +17,11 @@ const RequestSchema = new Schema(
     event_id: { type: Schema.Types.ObjectId, ref: 'Event' },
     creator_id: { type: Schema.Types.ObjectId, ref: 'User' },
     label: [{ type: String }],
-    assistant_id: { type: Schema.Types.ObjectId, ref: 'User' }
+    assistant_id: { type: Schema.Types.ObjectId, ref: 'User' },
+    type: {
+      type: String,
+      required: true
+    }
   },
   RequestSchemaOptions
 )
@@ -55,9 +61,43 @@ RequestSchema.query.byId = function(id) {
   }).populate('event')
 }
 
+RequestSchema.query.activeUserRequests = function({ event_id, user_id }) {
+  return this.where({
+    event_id,
+    creator_id: user_id
+  })
+    .where('type')
+    .in(activeRequest)
+}
+
 /**
- * Validation
+ * Methods
  */
+
+RequestSchema.methods.setCancelled = function() {
+  this.type = 'cancel'
+  return this.save()
+}
+
+RequestSchema.methods.setResolved = function() {
+  this.type = 'resolved'
+  return this.save()
+}
+
+RequestSchema.methods.setAssistant = function({ user_id }) {
+  this.assistant_id = user_id
+  this.type = 'assigned'
+  return this.save()
+}
+
+/**
+ * Statics
+ */
+RequestSchema.statics.activeUserRequestNum = function({ event_id, user_id }) {
+  return this.find()
+    .activeUserRequests({ event_id, user_id })
+    .count()
+}
 
 const Request = mongoose.model('Request', RequestSchema)
 export default Request

@@ -18,7 +18,8 @@ const EventSchema = new Schema({
   lines: [{ type: String, required: true }],
   requests_id: [{ type: Schema.Types.ObjectId, ref: 'Request' }],
   passcode: { type: String, required: true },
-  admin_code: { type: String, required: true }
+  admin_code: { type: String, required: true },
+  active_request_per_user: { type: Number, default: 1 }
 })
 
 /**
@@ -68,6 +69,7 @@ EventSchema.query.byId = function(id) {
   //  .populate('assistants', '-_id -__v -passcode')
   //  .populate('users', '-_id -__v -passcode')
 }
+
 /**
  * Create PassCode for common users
  */
@@ -147,12 +149,12 @@ EventSchema.methods.addRequest = function(id) {
   return this.save()
 }
 
-EventSchema.methods.removeRequest = function(id) {
-  var index = this.requests_id.indexOf(id)
-  if (index !== -1) {
-    this.requests_id.splice(index, 1)
+EventSchema.methods.isOkToAddRequest = function(num) {
+  if (this.active_request_per_user === -1) {
+    return true
   }
-  return this.save()
+
+  return num <= this.active_request_per_user
 }
 
 /**
