@@ -2,7 +2,6 @@ import mongoose from 'mongoose'
 import options from '../mixins/models/options'
 
 const Schema = mongoose.Schema
-// const typeOptions = ['create', 'assigned', 'update', 'cancel']
 /**
  * Event Schema
  */

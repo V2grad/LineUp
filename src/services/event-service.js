@@ -1,22 +1,23 @@
 import { NotFound, BadRequest, GeneralError } from 'fejl'
-// import { pick } from 'lodash'
+import { pick } from 'lodash'
 
 // Prefab assert function.
 const assertId = BadRequest.makeAssert('No event id given')
 const assertEvent = NotFound.makeAssert('Event Not Found')
 
 // Prevent overposting.
-// const pickProps = data => pick(data, ['name', 'completed'])
+const pickEvent = data => pick(data, ['name', 'lines'])
 
 /**
  * Event Service.
  * @TODO clean up the event creator verification
  */
 export default class EventService {
-  constructor(Event, User, logger, currentUser) {
+  constructor(Event, User, Request, logger, currentUser) {
     this.logger = logger
     this.user = User
     this.event = Event
+    this.request = Request
     this.currentUser = currentUser
   }
 
@@ -66,7 +67,7 @@ export default class EventService {
 
     BadRequest.assert(
       event.admin_code === data.passcode,
-      'User admin_code does not match with event admin_code!'
+      'User admin_code does not match with event‘s admin_code!'
     )
     // add user into users_id
 
@@ -87,8 +88,7 @@ export default class EventService {
 
     return this.event
       .create({
-        name: data.name,
-        lines: data.lines,
+        ...pickEvent(data),
         creator: this.currentUser._id
       })
       .then(doc => {
@@ -158,43 +158,20 @@ export default class EventService {
   }
 
   async remove(id) {
-    // Make sure the todo exists by calling `get`.
     let event = await this.get(id)
 
-    if (!this.currentUser.isCreator(event._id)) {
+    if (!event.isCreator(this.currentUser._id)) {
       BadRequest.assert(null, 'Attmept to modify non-creator event!')
     }
 
     return event
       .remove()
       .then(res => {
-        return `User ${id} removed`
+        return `Event ${id} removed`
       })
       .catch(err => {
         this.logger.error(err)
-        return GeneralError.assert(null, 'User not removed')
-      })
-  }
-
-  /**
-   * Adds a request that is already created to the list of an event
-   * @TODO How to create new request object to the database??
-   * @param {*} id id of Event
-   * @param {*} data contains id of request
-   */
-  async addRequest(id, data) {
-    assertId(id)
-    BadRequest.assert(data, 'No payload Given')
-    BadRequest.assert(data.request_id, 'No request id given')
-
-    let event = await this.get(id)
-
-    return event
-      .addRequest(data.request_id)
-      .then(res => res)
-      .catch(err => {
-        this.logger.error(err)
-        return GeneralError.assert(null, 'Event not updated')
+        return GeneralError.assert(null, 'Event not removed')
       })
   }
 }
