@@ -10,8 +10,11 @@ const api = eventService => ({
   createEvent: async ctx =>
     ctx.created(await eventService.create(ctx.request.body)),
   updateEvent: async ctx =>
-    ctx.update(await eventService.update(ctx.params.id, ctx.request.body)),
-  deleteEvent: async ctx => ctx.delete(await eventService.delete(ctx.params.id))
+    ctx.ok(await eventService.update(ctx.params.id, ctx.request.body)),
+  deleteEvent: async ctx =>
+    ctx.delete(await eventService.delete(ctx.params.id)),
+  joinUser: async ctx =>
+    ctx.ok(await eventService.joinUser(ctx.params.id, ctx.request.body))
 })
 
 // Maps routes to method calls on the `api` controller.
@@ -24,3 +27,4 @@ export default createController(api)
   .put('', 'createEvent')
   .post('/:id', 'updateEvent')
   .delete('/:id', 'deleteEvent')
+  .post('/join/:id', 'joinUser')

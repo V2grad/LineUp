@@ -130,8 +130,11 @@ EventSchema.methods.isUserExist = function(id) {
 }
 
 EventSchema.methods.addUser = function(id) {
-  this.users_id.push(id)
-  return this.save()
+  if (this.users_id.indexOf(id) === -1) {
+    this.users_id.push(id)
+    return this.save()
+  }
+  return Promise.reject(new Error('User has already joined event'))
 }
 
 EventSchema.methods.addAssistent = function(id) {
