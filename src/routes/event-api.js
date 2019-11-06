@@ -6,7 +6,7 @@ import { retrieveUser } from '../middleware/retrieve-user'
 // This way our services could be used in any type of app, not
 // just over HTTP.
 const api = eventService => ({
-  getEvent: async ctx => ctx.ok(await eventService.get(ctx.params.id)),
+  viewEvent: async ctx => ctx.ok(await eventService.viewEvent(ctx.params.id)),
   createEvent: async ctx =>
     ctx.created(await eventService.create(ctx.request.body)),
   updateEvent: async ctx =>
@@ -23,7 +23,7 @@ const api = eventService => ({
 export default createController(api)
   .prefix('/event')
   .before([retrieveUser])
-  .get('/:id', 'getEvent')
+  .get('/:id', 'viewEvent')
   .put('', 'createEvent')
   .post('/:id', 'updateEvent')
   .delete('/:id', 'deleteEvent')

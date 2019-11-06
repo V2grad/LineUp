@@ -81,13 +81,6 @@ UserSchema.methods = {
   isJoined: function() {
     return this.event_id !== null
   },
-  isCreator: function(id) {
-    if (typeof id === 'string') {
-      return this.event_id.toString() === id
-    }
-
-    return this.event_id.equals(id)
-  },
   joinEvent: function(eventId) {
     this.event_id = eventId
     return this.save()

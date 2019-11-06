@@ -35,6 +35,28 @@ export default class EventService {
       })
   }
 
+  // Returns a Certain Event
+  async viewEvent(id) {
+    assertId(id)
+
+    let event = await this.get(id)
+
+    BadRequest.assert(
+      event.isCreator(this.currentUser._id),
+      'Attempt to view non-creator event!'
+    )
+
+    return event
+      .then(res => res)
+      .catch(err => {
+        this.logger.error(err)
+        return GeneralError.assert(
+          null,
+          'For some reason fetching passcode failed.'
+        )
+      })
+  }
+
   // joins User by Passcode
   async joinUser(id, data) {
     assertId(id)

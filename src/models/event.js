@@ -124,7 +124,7 @@ EventSchema.methods.isCreator = function(id) {
     return this.creator_id.toString() === id
   }
 
-  return this.creator_id.equals(id)
+  return this.creator_id && this.creator_id.equals(id)
 }
 
 EventSchema.methods.isUserExist = function(id) {
