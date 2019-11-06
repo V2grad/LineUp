@@ -112,7 +112,7 @@ export default class EventService {
     return this.event
       .create({
         ...pickEvent(data),
-        creator: this.currentUser._id
+        creator_id: this.currentUser._id
       })
       .then(doc => {
         // Bind user side
