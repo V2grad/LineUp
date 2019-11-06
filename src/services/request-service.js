@@ -13,11 +13,12 @@ const pickRequest = data => pick(data, ['title', 'label'])
  * @TODO clean up the event creator verification
  */
 export default class RequestService {
-  constructor(User, logger, currentUser, Request) {
+  constructor(User, logger, currentUser, Request, Event) {
     this.logger = logger
     this.user = User
     this.currentUser = currentUser
     this.request = Request
+    this.event = Event
   }
 
   async get(id) {
@@ -37,7 +38,7 @@ export default class RequestService {
   async create(data) {
     BadRequest.assert(this.currentUser.isJoined(), 'No Event Joined!')
     BadRequest.assert(data.title, 'No title given')
-    BadRequest.assert(data.title < 50, 'Title is too long')
+    BadRequest.assert(data.title.length < 50, 'Title is too long')
 
     return this.request
       .find()
@@ -48,13 +49,16 @@ export default class RequestService {
       .then(res => {
         return this.event
           .findById(this.currentUser.event_id)
-          .isOktoAddRequest(res)
+          .then(evt => {
+            return evt.isOkToAddRequest(res)
+          })
       })
       .then(res => {
         if (res) {
           return this.request
             .create({
               ...pickRequest(data),
+              type: 'created',
               creator_id: this.currentUser._id,
               event_id: this.currentUser.event_id
             })
@@ -83,7 +87,7 @@ export default class RequestService {
     assertId(id)
 
     BadRequest.assert(data.title, 'No title given')
-    BadRequest.assert(data.title < 50, 'Title is too long')
+    BadRequest.assert(data.title.length < 50, 'Title is too long')
 
     // Make sure the user exists by calling `get`.
     let request = await this.get(id)
