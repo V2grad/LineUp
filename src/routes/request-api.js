@@ -10,9 +10,9 @@ const api = requestService => ({
   createRequest: async ctx =>
     ctx.created(await requestService.create(ctx.request.body)),
   updateRequest: async ctx =>
-    ctx.update(await requestService.update(ctx.params.id, ctx.request.body)),
+    ctx.ok(await requestService.update(ctx.params.id, ctx.request.body)),
   cancelEvent: async ctx =>
-    ctx.update(await requestService.cancel(ctx.params.id)),
+    ctx.ok(await requestService.cancel(ctx.params.id)),
   deleteRequest: async ctx =>
     ctx.noContent(await requestService.remove(ctx.params.id))
 })

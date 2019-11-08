@@ -17,6 +17,24 @@ export default class UserService {
   async get() {
     return this.currentUser
   }
+  
+  // Returns a certain user
+  async viewUser(id) {
+    assertId(id)
+
+    let user = await this.get()
+
+    return user
+      .then(res => res)
+      .catch(err => {
+        this.logger.error(err)
+        return GeneralError.assert(
+          null,
+          'For some reason fetching passcode failed.'
+        )
+      })
+  }
+  
 
   async update(data) {
     BadRequest.assert(data, 'No payload given')

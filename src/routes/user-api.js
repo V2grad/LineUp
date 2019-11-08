@@ -10,7 +10,7 @@ const api = userService => ({
   createUser: async ctx =>
     ctx.created(await userService.create(ctx.request.body)),
   updateUser: async ctx =>
-    ctx.update(await userService.update(ctx.request.body)),
+    ctx.ok(await userService.update(ctx.request.body)),
   deleteUser: async ctx => ctx.noContent(await userService.remove())
 })
 
