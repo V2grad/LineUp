@@ -11,7 +11,7 @@ const api = userService => ({
     ctx.created(await userService.create(ctx.request.body)),
   updateUser: async ctx =>
     ctx.update(await userService.update(ctx.request.body)),
-  deleteUser: async ctx => ctx.delete(await userService.delete())
+  deleteUser: async ctx => ctx.noContent(await userService.remove())
 })
 
 // Maps routes to method calls on the `api` controller.

@@ -13,7 +13,7 @@ const api = eventService => ({
   updateEvent: async ctx =>
     ctx.ok(await eventService.update(ctx.params.id, ctx.request.body)),
   deleteEvent: async ctx =>
-    ctx.delete(await eventService.delete(ctx.params.id)),
+    ctx.noContent(await eventService.remove(ctx.params.id)),
   joinUser: async ctx =>
     ctx.ok(await eventService.joinUser(ctx.params.id, ctx.request.body))
 })

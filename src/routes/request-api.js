@@ -12,7 +12,9 @@ const api = requestService => ({
   updateRequest: async ctx =>
     ctx.update(await requestService.update(ctx.params.id, ctx.request.body)),
   cancelEvent: async ctx =>
-    ctx.update(await requestService.cancel(ctx.params.id))
+    ctx.update(await requestService.cancel(ctx.params.id)),
+  deleteRequest: async ctx =>
+    ctx.noContent(await requestService.remove(ctx.params.id))
 })
 
 // Maps routes to method calls on the `api` controller.
