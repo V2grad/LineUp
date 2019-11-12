@@ -1,4 +1,4 @@
 export default {
-  token: null,
+  passcode: null,
   userId: null
 }

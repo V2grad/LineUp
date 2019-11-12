@@ -1,13 +1,12 @@
 import Vue from '@/main'
 
 export default {
-  login ({ commit }, { email, password }) {
-    return Vue.$axios.post('/auth/login', {
-      email,
-      password
+  login ({ commit }, { name }) {
+    return Vue.$axios.post('/auth', {
+      name
     }).then((res) => {
-      commit('setAuthToken', res.data.token)
-      commit('setUserId', res.data.user_id)
+      commit('setPasscode', res.data.passcode)
+      commit('setUserId', res.data._id)
 
       Vue.$router.push({
         'name': 'DashBoard'
@@ -20,25 +19,10 @@ export default {
       return false
     })
   },
-  register (ctx, { email, password }) {
-    return Vue.$axios.post('/auth/register', {
-      email, password
-    }).then((res) => {
-      Vue.$toasted.success(res.data.message)
-
-      Vue.$router.push({
-        'name': 'Login'
-      })
-
-      return true
-    }).catch(() => {
-      return false
-    })
-  },
   reset ({
     commit
   }) {
-    commit('setAuthToken', null)
+    commit('setPasscode', null)
     commit('setUserId', null)
 
     Vue.$router.push({
@@ -51,8 +35,8 @@ export default {
   },
   validateUserState ({ getters, dispatch }) {
     if (getters['userId']) {
-      return Vue.$axios.get('/auth/getMe').then((res) => {
-        if (res.data.user_id !== getters['userId']) {
+      return Vue.$axios.get('/auth').then((res) => {
+        if (res.data._id !== getters['userId']) {
           console.log('Special: userID does not match current user')
           dispatch('reset') // WTF
         }

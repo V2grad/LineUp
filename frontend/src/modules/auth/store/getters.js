@@ -1,6 +1,6 @@
 export default {
-  token: (state) => {
-    return state.token
+  passcode: (state) => {
+    return state.passcode
   },
   userId: (state) => {
     return state.userId

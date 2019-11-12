@@ -9,3 +9,13 @@
     </b-button-group>
   </b-card>
 </template>
+
+
+<script>
+export default {
+  name: 'LogoutCard',
+  mounted() {
+    this.$store.dispatch('auth/reset')
+  }
+}
+</script>

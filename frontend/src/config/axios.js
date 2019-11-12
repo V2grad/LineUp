@@ -5,11 +5,12 @@ import v from '@/main'
 
 axios.interceptors.request.use((config) => {
   config.baseURL = store.getters['home/API']
-  let token = store.getters['auth/token']
-  console.log(token)
+  let user_id = store.getters['auth/userId']
+  let passcode = store.getters['auth/token']
   if (token) {
     // Authentication Authorization
-    config.headers.common['token'] = token
+    config.headers.common['user_id'] = user_id
+    config.headers.common['passcode'] = passcode
   }
   return config
 }, function (error) {

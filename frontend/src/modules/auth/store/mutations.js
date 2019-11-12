@@ -1,6 +1,6 @@
 export default {
-  setAuthToken (state, token) {
-    state.token = token
+  setPasscode (state, token) {
+    state.passcode = token
   },
   setUserId (state, Id) {
     state.userId = Id

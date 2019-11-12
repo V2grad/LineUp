@@ -1,7 +1,6 @@
 <template>
 <div>
   <user-card class="mb-4"/>
-  <session-card/>
 </div>
 </template>
 
@@ -13,11 +12,10 @@ export default {
   name: 'Profile',
   components:{
     UserCard,
-    SessionCard
   },
   computed: {
-    userId () {
-      return this.$store.getters['auth/userId']
+    name () {
+      return this.$store.getters['user/name']
     }
   }
 }

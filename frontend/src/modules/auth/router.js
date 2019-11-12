@@ -10,8 +10,4 @@ export default [{
   path: 'auth/logout',
   name: 'Logout',
   component: () => import(/* webpackChunkName: "logout" */ './views/Logout')
-}, {
-  path: 'auth/resetPassword',
-  name: 'ResetPassword',
-  component: () => import(/* webpackChunkName: "ResetPassword" */ './views/ResetPassword')
 }]

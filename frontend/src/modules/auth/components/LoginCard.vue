@@ -3,32 +3,19 @@
           sub-title="So close to the dashboard..."
           footer-tag="footer">
           <b-form>
-            <b-form-group id="EmailGroup"
-              label="Email"
-              label-for="EmailInput"
-               :invalid-feedback="invalidResponse('email')"
-            >
-            <b-form-input
-              id="EmailInput"
-              type="text"
-              v-model="email"
-              v-validate="'required|email'"
-              :state="validateState('email')"
-              name="email">
-            </b-form-input>
              </b-form-group>
-              <b-form-group id="PasswordGroup"
-                label="Password"
-                label-for="PasswordInput"
-                :invalid-feedback="invalidResponse('password')"
+              <b-form-group id="NameGroup"
+                label="Name"
+                label-for="NameInput"
+                :invalid-feedback="invalidResponse('name')"
               >
               <b-form-input
-                id="PasswordInput"
-                type="password"
-                v-model="password"
+                id="NameInput"
+                type="text"
+                v-model="name"
                 v-validate="'required|min:6'"
-                :state="validateState('password')"
-                name="password">
+                :state="validateState('name')"
+                name="name">
               </b-form-input>
              </b-form-group>
           </b-form>
@@ -44,16 +31,14 @@ export default {
   mixins: [Form],
   data () {
     return {
-      email: null,
-      password: null
+      name: null
     }
   },
   methods: {
     submit () {
       this.submitting = true
       this.$store.dispatch('auth/login', {
-        email: this.email,
-        password: this.password
+        name: this.name
       }).then((success) => {
         if (!success) this.submitting = false
       })
