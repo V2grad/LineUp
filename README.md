@@ -1,18 +1,6 @@
-# Koa Boilerplate
+# LineUp
 
-<a href="https://communityinviter.com/apps/koa-js/koajs" rel="KoaJs Slack Community">![KoaJs Slack](https://img.shields.io/badge/Koa.Js-Slack%20Channel-Slack.svg?longCache=true&style=for-the-badge)</a>
-
-
-
-✨ A boilerplate for writing beautiful `async-await`-based Koa API's using `babel` for **Node v8.0 and above!**. 🚀
-
-## Setting up shop
-
-Clone this repo and adjust details in `package.json`. Remove the `.git` directory and `git init` to start fresh.
-
-Read on to learn how to actually start being productive.
-
-## What's in the package?
+## What we use?
 
 - 🏃‍♀️&nbsp;&nbsp;&nbsp;`npm run` scripts, see next section for details.
 - 🛣 &nbsp;&nbsp;[`awilix-koa`][awilix-koa] for declarative routing.
@@ -29,7 +17,9 @@ Read on to learn how to actually start being productive.
 - 💉 &nbsp;&nbsp;&nbsp;[`awilix`][awilix] for dependency injection / IoC.
 - ⚠️ &nbsp;&nbsp;&nbsp;[`fejl`][fejl] for assertions and errors.
 
-## `npm run` scripts
+## Backend
+
+#### `npm run` scripts
 
 There are a few defined run scripts, here's a list of them with a description of what they do. To run them, simply execute `npm run <script name>` - e.g. `npm run dev`
 
@@ -87,6 +77,9 @@ The repository root contains auxiliary files like `package.json`, `.gitignore`, 
   - `[your directory]`: you can plop anything else here, too.
     - `__tests__`: Unit tests for files in your directory.
 
+- `frontend`
+  - `src`: Vuejs 
+
 ## Testing
 
 To recap the previous section, `src/__tests__` are for integration tests, and any `__tests__` folder under `src/<folder>` are unit tests.
@@ -130,10 +123,6 @@ for details. The container is configured in `lib/container.js`.
 ## Middleware
 
 Middleware is located in the `middleware` folder and is _not_ automatically loaded - they should be installed in `lib/server`.
-
-# Author
-
-- Jeff Hansen - [@Jeffijoe](https://twitter.com/Jeffijoe)
 
 # License
 

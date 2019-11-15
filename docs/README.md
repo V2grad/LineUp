@@ -1,0 +1,6 @@
+# Docs
+
+## Structure
+
+![](./structure.png)
+
