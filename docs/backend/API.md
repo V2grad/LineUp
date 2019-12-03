@@ -17,13 +17,18 @@ APIs are classified by Services
 - DELETE (remove user)
 
 ## Event
-- GET: 
+- GET 
 "/:id" (get ID); 
 "/view/:id" (view event)
 - PUT (create event)
-- POST: 
+- POST
 "/:id" (update event)
 "/join/:id" (join a user)
-- DELETE:
+- DELETE
 "/:id" (delete an event)
 ## Request
+- GET
+"/:id" (get request)
+- PUT (create request)
+- POST 
+"/:id" (update request)
