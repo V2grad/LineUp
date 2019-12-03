@@ -35,4 +35,21 @@ APIs are classified by Services
 "/:id" (update request)
 
 # Examples
+The post is manually generated with Postman to test the backend  
+## Add user "Sanae Kochiya"
+- Type: POST
+- Body
+"name": "Sanae Kochiya"
+- Results
+![auth_result](./auth_sanae_kochiya.png)
 
+## Add user "Sanae Kochiya" into event "MountainOfFaith"
+- Type: POST
+- Headers
+"user_id": \<generated in auth>
+"passcode": \<generated in auth>
+- Body
+"name": "MountainOfFaith"
+"lines": "checkpoint"
+- Results
+![add_to_event](./add_user_into_event.png)
