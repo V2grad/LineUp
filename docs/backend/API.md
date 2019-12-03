@@ -3,7 +3,7 @@
 APIs are classified by Services
 
 # Content 
-- Authentication (non-standard RESTful API)
+- Authentication (non-standard)
 - User
 - Event
 - Request
@@ -13,5 +13,7 @@ APIs are classified by Services
 - POST: registration
 
 ## User
+- POST: update user
+- DELETE: remove user
 ## Event
 ## Request
