@@ -1,12 +1,13 @@
 # Intro
 
 APIs are classified by Services
-
+![schema.json](./structure.png)
 # Content 
 - Authentication (non-standard)
 - User
 - Event
 - Request
+
 
 ## Auth
 - GET (validation)
@@ -32,3 +33,6 @@ APIs are classified by Services
 - PUT (create request)
 - POST 
 "/:id" (update request)
+
+# Examples
+
