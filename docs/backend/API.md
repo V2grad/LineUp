@@ -9,11 +9,21 @@ APIs are classified by Services
 - Request
 
 ## Auth
-- GET: validation
-- POST: registration
+- GET (validation)
+- POST (registration)
 
 ## User
-- POST: update user
-- DELETE: remove user
+- POST (update user)
+- DELETE (remove user)
+
 ## Event
+- GET: 
+"/:id" (get ID); 
+"/view/:id" (view event)
+- PUT (create event)
+- POST: 
+"/:id" (update event)
+"/join/:id" (join a user)
+- DELETE:
+"/:id" (delete an event)
 ## Request
